@@ -7,17 +7,7 @@ import GetMarvelData from '../../services/GetMarvelData'
 import Spinner from "../Spinner/spinner"
 import Error from "../error/error.js"
 
-const CharList = ({getId}) => {
-
-    // state = {
-    //     chars: [],
-    //     error: false,
-    //     spinner: true,
-    //     counter: 1548,
-    //     noActiveBTN: false,
-    //     finishedChars: false,
-    //     activeCardChars: null
-    // }
+const CharList = ({getId}) => {    
 
     const [chars, setChars] = useState([]);
     const [error, setError] = useState(false);
@@ -34,9 +24,7 @@ const CharList = ({getId}) => {
         getServerChars();
     // eslint-disable-next-line            
     }, [])
-    // componentDidMount(){
-    //     this.getServerChars()       
-    // }
+    
 
     // 2п Поскольку при подгрузке персонажей меняем состояние
     // автоматически вызывается этот метод жизненного цикла компанента, 
@@ -45,11 +33,6 @@ const CharList = ({getId}) => {
         getServerChars();
     // eslint-disable-next-line
     }, [counter])
-    // componentDidUpdate(prevProps, prevState) {
-    //     if(this.state.counter !== prevState.counter) {
-    //         this.getServerChars() 
-    //     }
-    // }
     
 
     // Метод загрузки персонажей.
@@ -69,19 +52,12 @@ const CharList = ({getId}) => {
     // 1п действия при подгрузке    
     const onCharsLoading = () => { 
         setCounter(counter + 9);
-        setNoActiveBTN(true)
-        // this.setState(({counter})=> ({
-        //     counter: counter + 9,
-        //     noActiveBTN: true
-        // }))           
+        setNoActiveBTN(true)               
     }
     
     const _setStateError = ()=> {
         setError(true);
-        setSpinner(false);
-        // this.setState({
-        //     error: true,
-        //     spinner: false})
+        setSpinner(false);       
     }
     // 4з создание персонажей, который автоматически
     // в пункте 3з принимает аргумент с загруженным с сервера
@@ -92,31 +68,19 @@ const CharList = ({getId}) => {
             //     // массивом очередных погружаемых
             setChars([...chars, ...plusChars ]);
             setSpinner();
-            setNoActiveBTN();
-            // this.setState({            //    
-            //     chars: [...this.state.chars, ...chars ],
-            //     spinner: false,
-            //     noActiveBTN: false
-            // }) 
-            
+            setNoActiveBTN();            
+
         } 
         // Если персонажи закончились
         if (plusChars.length < 9) {
-            setFinishedChars(true);
-            // this.setState({
-            //     finishedChars: true
-            // }) 
+            setFinishedChars(true); 
         }       
     }
   
     
     const onInstallationIdChars = (num)=> {        
-        setActiveCardChars(num)        
-        // this.setState({
-        //     activeCardChars: id
-        // })        
-    }
-    
+        setActiveCardChars(num)
+    }    
     
     // Показ различных элементов при отсутствии доступа к серверу error,
     // удачной загрузке персонажей chars, персонажи закончились finishedChars,
