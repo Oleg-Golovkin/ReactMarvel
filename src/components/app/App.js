@@ -19,14 +19,14 @@ const App = () => {
             <AppHeader/>
             <main>
                 <RandomChar/>
-                <div className="char__content">
+                {/* <div className="char__content">
                     <CharList getId = {getId}
                     id = {id}/>
                     <ErrorBoundary>
                         <CharInfo id = {id}/>
                     </ErrorBoundary>                    
                 </div>
-                <img className="bg-decoration" src={decoration} alt="vision"/>
+                <img className="bg-decoration" src={decoration} alt="vision"/> */}
             </main>
         </div>
     )    

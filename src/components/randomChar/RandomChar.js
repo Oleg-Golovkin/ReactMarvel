@@ -3,73 +3,44 @@
 
 import './randomChar.scss';
 import mjolnir from '../../resources/img/mjolnir.png';
-import GetMarvelData from '../../services/GetMarvelData'
+import useGetMarvelData from '../../services/GetMarvelData'
 import Spinner from "../Spinner/spinner"
 import Error from "../error/error.js"
 import { useState, useEffect} from 'react';
 
-const RandomChar = () => {   
-    // state = {        
-    //     char: {},
-    //     spinner: true,
-    //     error: false
-    // }   
+const RandomChar = () => {  
     // Записываем состояние в отдельное совойство, 
     // а не в корень, чтобы иметь возможность расширять 
      // состояния дописывая в него новые свойства
     const [char, setChar] = useState({});    
-    const [spinner, setSpinner] = useState(true);  
-    const [error, setError] = useState(false);
+    // const [spinner, setSpinner] = useState(true);  
     
-    const getMarvelData = new GetMarvelData();
+    const {error, setError, spinner, setSpinner, clearError, resPostCharacter} = useGetMarvelData();
 
     // Не обязательно. Выводим отдельную в функцию
     // запись состояния
     const _setState = (char) => { 
-        // this.setState({
-        //     char,
-        //     spinner: false
-        // })
         setChar(char);
-        setSpinner(false);
-    }
-    
-    // Не обязательно. Смена сосотояния 
-    // при ошибке
-    const _setStateError = () => { 
-        // this.setState({
-        //     spinner: false,
-        //     error: true
-        // })
-        setSpinner(false);
-        setError(true);
     }
 
-    const _onSpinner = () => {
-        // this.setState({
-        //     spinner: true           
-        // })
-        setSpinner(true);
-    }  
-    
     // Загрузка данных из сервера
     // для сайта
     const changeCharacter = () => {
         const id = Math.floor(Math.random() * (1011400 - 1011000) + 1011000)
-        // Чтобы спиннер запускался в момнет запроса данных с сервера
-        _onSpinner()
-        // Конструктор с запросом на сервер.       
-        getMarvelData
+        // Спиннер запускается в момнет запроса данных с сервера
+        // в рабках функции resPostCharacter, в котором функция request, в которой запускается
+        // спиннер        
         // Метод, в котором храниться в fetch        
-        .resPostCharacter(id)
+        resPostCharacter(id)
         // Промисы
         // Не обязательно. Запись состояния вынесена 
         // в отдельную функцию this._setState. Полученный
         // ответ от сервера записывается в эту функцию без явного
         // написания об этом.
         // .then(char=> this._setState(char)) длинная запись;
-        .then(_setState)
-        .catch(_setStateError);
+            .then(_setState)
+        clearError()
+            // Поведение ошибки прописано в resPostCharacter=>request=>
     }
 
     // componentDidMount(){
