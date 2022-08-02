@@ -7,6 +7,8 @@ import useGetMarvelData from '../../services/GetMarvelData'
 import Spinner from "../Spinner/spinner"
 import Error from "../error/error.js"
 import { useState, useEffect} from 'react';
+import ErrorBoundary from "../errorBoundary/ErrorBoundary";
+
 
 const RandomChar = () => {  
     // Записываем состояние в отдельное совойство, 
@@ -14,7 +16,7 @@ const RandomChar = () => {
      // состояния дописывая в него новые свойства
     const [char, setChar] = useState({});    
     
-    const {error, spinner, clearError, resPostCharacter} = useGetMarvelData();
+    const {error, setError, spinner, clearError, resPostCharacter} = useGetMarvelData();
 
     // Не обязательно. Выводим отдельную в функцию
     // запись состояния
@@ -25,7 +27,9 @@ const RandomChar = () => {
     // Загрузка данных из сервера
     // для сайта
     const changeCharacter = () => {
+        clearError()
         const id = Math.floor(Math.random() * (1011400 - 1011000) + 1011000)
+        // const id = 1
         // Спиннер запускается в момнет запроса данных с сервера
         // в рабках функции resPostCharacter, в котором функция request, в которой запускается
         // спиннер        
@@ -38,7 +42,7 @@ const RandomChar = () => {
         // написания об этом.
         // .then(char=> this._setState(char)) длинная запись;
             .then(_setState)
-        clearError()
+        
             // Поведение ошибки прописано в resPostCharacter=>request=>
     }
 
@@ -59,9 +63,12 @@ const RandomChar = () => {
 
     return (
         <div className="randomchar">
-            {spinnerBlock}
-            {charBlock}
-            {errorBlock}
+            <ErrorBoundary setError={setError}
+                            error = {error}>
+                {spinnerBlock}
+                {charBlock}
+                {errorBlock}
+            </ErrorBoundary>
             <div className="randomchar__static">
                 <p className="randomchar__title">
                     Random character for today!<br/>

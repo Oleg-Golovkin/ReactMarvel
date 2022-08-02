@@ -10,7 +10,7 @@ const useGetMarvelData = ()=> {
     cum sit molestias, delectus officiis veniam?`;
     const baseСharacter = 210;     
     
-    const {request, spinner, setSpinner, error, setError, clearError} = useHttp();
+    const {request, spinner, error, setError, clearError} = useHttp();
 
     // Не обязательно. Чтобы иметь возможность обращаться
     // к разным адресам
@@ -35,10 +35,10 @@ const useGetMarvelData = ()=> {
     // Обращение к персонажу по id
         const resPostCharacter = async (id) => {
             try { 
-                const data = await request(`
-                ${address}characters/${id}?${apikey}`
-                )
-                return  _transformation(await data.data.results[0]);
+            const data = await request(`
+            ${address}characters/${id}?${apikey}`
+            )
+            return  _transformation(await data.data.results[0]);
             } catch(e){} 
         }
    
@@ -62,7 +62,7 @@ const useGetMarvelData = ()=> {
         
     }
 
-    return { spinner, setSpinner, error, setError, clearError, resPostAllCharacter, resPostCharacter}
+    return { spinner, error, setError, clearError, resPostAllCharacter, resPostCharacter}
 }
 
 

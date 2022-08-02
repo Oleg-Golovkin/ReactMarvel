@@ -18,14 +18,12 @@ const App = () => {
         <div className="app">
             <AppHeader/>
             <main>
-                <ErrorBoundary>
                     <RandomChar/>
-                </ErrorBoundary> 
                 <div className="char__content">
                     <ErrorBoundary>
                         <CharList getId = {getId}
                         id = {id}/>
-                     </ErrorBoundary> 
+                    </ErrorBoundary> 
                     <ErrorBoundary>
                         <CharInfo id = {id}/>
                     </ErrorBoundary>                    

@@ -18,6 +18,7 @@
                 const data = await response.json()
                 // После загруки данных выключаем спиннер.
                 setSpinner(false)
+                setError(false)
                 // Возвращаем в переменную reqest полученные в переменной data данные 
                 return data
             } catch(e) {
@@ -29,8 +30,11 @@
             }
         }, [])
 
-        const clearError =  useCallback(() => setError(null), []);
-        return {request, spinner, error, clearError};
+        const clearError =  useCallback(() => {
+            console.log('fsa');
+            return setError(null)
+        }, []);
+        return {request, spinner, error, setError, clearError};
     }
 
     export default useHttp
