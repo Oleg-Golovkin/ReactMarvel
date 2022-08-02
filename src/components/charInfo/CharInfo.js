@@ -3,10 +3,10 @@
 
 import './charInfo.scss';
 import { useEffect, useState } from 'react';
-import GetMarvelData from '../../services/GetMarvelData'
 import Spinner from "../Spinner/spinner"
 import Error from "../error/error.js"
 import Skeleton from "../skeleton/Skeleton"
+import useGetMarvelData from '../../services/GetMarvelData';
 
 
 const CharInfo = ({id}) => {
@@ -17,10 +17,8 @@ const CharInfo = ({id}) => {
     // }
     
     const [char, setChar] = useState(); 
-    const [error, setError] = useState(); 
-    const [spinner, setSpinner] = useState(); 
 
-    const getMarvelData = new GetMarvelData();
+    const {error, spinner, clearError, resPostCharacter} = useGetMarvelData();
 
     const changeCharacter = () => {
         // Если id еще не выбран, то команды ниже не 
@@ -30,12 +28,10 @@ const CharInfo = ({id}) => {
         if(!id) {
             return
         }
-        // Чтобы спиннер запускался в момнет запроса данных с сервера
-        _onSpinner()
         // Конструктор с запросом на сервер.       
-        getMarvelData
+        
         // Метод, в котором храниться в fetch        
-            .resPostCharacter(id)
+        resPostCharacter(id)
             // Промисы
             // Не обязательно. Запись состояния вынесена 
             // в отдельную функцию this._setState. Полученный
@@ -43,7 +39,7 @@ const CharInfo = ({id}) => {
             // написания об этом.
             // .then(char=> this._setState(char)) длинная запись;
             .then(_creationChar)
-            .catch(_setStateError);
+        clearError()
     }    
 
     // componentDidMount(){
@@ -74,26 +70,15 @@ const CharInfo = ({id}) => {
     //         spinner: false
     //     })        
     // }
-    const _setStateError = ()=> {
-        setError(true);
-        setSpinner(false);
-    }
 
     const _creationChar = (char) => {
         setChar(char);
-        setSpinner(false);
         // this.setState({
         //     char,
         //     spinner: false,
         // })
     }
 
-    const _onSpinner = ()=> {
-        setSpinner(true)
-        // this.setState({
-        //     spinner: true           
-        // })
-    } 
     // Если спиннер в позиции true то показывается он
     const loading = spinner ? <Spinner/> : null
     // Если ошибка в позиции true то показывается она

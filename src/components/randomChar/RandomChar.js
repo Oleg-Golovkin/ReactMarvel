@@ -13,9 +13,8 @@ const RandomChar = () => {
     // а не в корень, чтобы иметь возможность расширять 
      // состояния дописывая в него новые свойства
     const [char, setChar] = useState({});    
-    // const [spinner, setSpinner] = useState(true);  
     
-    const {error, setError, spinner, setSpinner, clearError, resPostCharacter} = useGetMarvelData();
+    const {error, spinner, clearError, resPostCharacter} = useGetMarvelData();
 
     // Не обязательно. Выводим отдельную в функцию
     // запись состояния

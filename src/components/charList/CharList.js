@@ -3,21 +3,19 @@
 
 import './charList.scss';
 import { useState, useEffect} from 'react';
-import GetMarvelData from '../../services/GetMarvelData'
 import Spinner from "../Spinner/spinner"
 import Error from "../error/error.js"
+import useGetMarvelData from '../../services/GetMarvelData';
 
 const CharList = ({getId}) => {    
 
     const [chars, setChars] = useState([]);
-    const [error, setError] = useState(false);
-    const [spinner, setSpinner] = useState(true);
     const [counter, setCounter] = useState(1548);
     const [noActiveBTN, setNoActiveBTN] = useState(false);
     const [finishedChars, setFinishedChars] = useState(false);
     const [activeCardChars, setActiveCardChars] = useState(null);
 
-    const getMarvelData = new GetMarvelData();
+    const {error, spinner, clearError, resPostAllCharacter} = useGetMarvelData();
 
     // При загрузке страницы сразу подгружаем персонажей
     useEffect(()=> {
@@ -39,25 +37,20 @@ const CharList = ({getId}) => {
     // 1з действия при загруке персонажей. 
     const getServerChars = () => {        
         // 1з вызываем импортированный экземпляр класса
-        getMarvelData      
+              
             // 2з вызываем его метод, который принимает
             // число, от которого идет отсчет загружаемых персонажей,
-            .resPostAllCharacter(counter)
+        resPostAllCharacter(counter)
             // 3з при положительном вызываем метод создания персонажей
             // eslint-disable-next-line
             .then(_creationChars)
-            .catch(_setStateError);
+        clearError()
     }
     // При нажатии на кнопку подгружаем еще персонажей.
     // 1п действия при подгрузке    
     const onCharsLoading = () => { 
         setCounter(counter + 9);
         setNoActiveBTN(true)               
-    }
-    
-    const _setStateError = ()=> {
-        setError(true);
-        setSpinner(false);       
     }
     // 4з создание персонажей, который автоматически
     // в пункте 3з принимает аргумент с загруженным с сервера
@@ -67,7 +60,6 @@ const CharList = ({getId}) => {
              // 5з объединяем массив с загруженными персонажами с 
             //     // массивом очередных погружаемых
             setChars([...chars, ...plusChars ]);
-            setSpinner();
             setNoActiveBTN();            
 
         } 
