@@ -25,7 +25,7 @@
                 setError(true)
                 // И иконка спиннера уберется, поскольку и так будет ошибка
                 setSpinner(false)
-                throw e
+                // throw e
             }
         }, [])
 

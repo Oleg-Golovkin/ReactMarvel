@@ -15,27 +15,33 @@ const useGetMarvelData = ()=> {
     // Не обязательно. Чтобы иметь возможность обращаться
     // к разным адресам
     // Обращение к группе персонажей
-    const resPostAllCharacter = async (offsetCharacter = baseСharacter) => {        
-        const data = await request(`
-        ${address}characters?limit=9&offset=${offsetCharacter}&${apikey}`
-        )
-        // Если возвращается массив с объектами, то вначале их
-        // перебираем через .map, а затем также как в  resPostCharacter
-        // берем каждый объект и извлекаем из него необходимые свойства.
-        // В this._transformation не записываем аргумент, по скольку он туда
-        // передается по умолчанию
-        return await data.data.results.map(_transformation)        
+    
+        const resPostAllCharacter = async (offsetCharacter = baseСharacter) => {        
+        try {  
+            const data = await request(`
+            ${address}characters?limit=9&offset=${offsetCharacter}&${apikey}`
+            )
+            // Если возвращается массив с объектами, то вначале их
+            // перебираем через .map, а затем также как в  resPostCharacter
+            // берем каждый объект и извлекаем из него необходимые свойства.
+            // В this._transformation не записываем аргумент, по скольку он туда
+            // передается по умолчанию
+            return await data.data.results.map(_transformation)
+        } catch(e){}        
     }
 
     // Не обязательно. Чтобы иметь возможность обращаться
     // к разным адресам
     // Обращение к персонажу по id
-    const resPostCharacter = async (id) => {
-        const data = await request(`
-        ${address}characters/${id}?${apikey}`
-        )
-        return  _transformation(await data.data.results[0]);
-    }
+        const resPostCharacter = async (id) => {
+            try { 
+                const data = await request(`
+                ${address}characters/${id}?${apikey}`
+                )
+                return  _transformation(await data.data.results[0]);
+            } catch(e){} 
+        }
+   
 
     const _сorrectionDescription = (description) => {
         if (description === "") {
