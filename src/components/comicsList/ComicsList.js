@@ -1,10 +1,16 @@
 import './comicsList.scss';
 import uw from '../../resources/img/UW.png';
 import xMen from '../../resources/img/x-men.png';
-import { Component } from 'react/cjs/react.production.min';
+import useGetComicsData from "../../services/GetComicsData";
 
-class ComicsList extends Component{
-    render(){
+const ComicsList = ()=>{
+
+    const {resPostAllComics} = useGetComicsData()
+    const getServerComics = ()=> {
+        resPostAllComics()
+        .then((data)=> {console.log(data);})
+    }
+
         return (
             <div className="comics__list">
                 <ul className="comics__grid">
@@ -65,12 +71,13 @@ class ComicsList extends Component{
                         </a>
                     </li>
                 </ul>
-                <button className="button button__main button__long">
+                <button
+                onClick={getServerComics}
+                className="button button__main button__long">
                     <div className="inner">load more</div>
                 </button>
             </div>
         )
-    }
 }
 
 export default ComicsList;
