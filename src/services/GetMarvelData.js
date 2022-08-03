@@ -1,4 +1,4 @@
-import useHttp from "../components/useHttp/useHttp"
+import useHttp from "../components/hooks/useHttp"
 
 const useGetMarvelData = ()=> {
     
