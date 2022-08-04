@@ -40,7 +40,7 @@ const ComicsList = ()=>{
                     </a>
                 </li>
             )
-        })
+        }) 
 
     const errorIcon = error ? <Error/> : null
     const spinnerIcon = spinner ? <Spinner/> : null
