@@ -15,15 +15,17 @@
                 // Поскольку в response будет возвращаться не ответ, а Promise, для получения
                 // данных прописываем еще переменную. .json() - метод преобразования полученных
                 // данных в формат json
+                if (!response.ok) {
+                    setError(true)
+                } else {
+                    setError(false)
+                };
                 const data = await response.json()
                 // После загруки данных выключаем спиннер.
-                setSpinner(false)
-                setError(false)
+                setSpinner(false)                
                 // Возвращаем в переменную reqest полученные в переменной data данные 
                 return data
-            } catch(e) {
-                // Если ошибка, то покажется иконка ошибки 
-                setError(true)
+            } catch(e) {                
                 // И иконка спиннера уберется, поскольку и так будет ошибка
                 setSpinner(false)
                 // throw e
@@ -31,7 +33,6 @@
         }, [])
 
         const clearError =  useCallback(() => {
-            console.log('fsa');
             return setError(null)
         }, []);
         return {request, spinner, error, setError, clearError};
