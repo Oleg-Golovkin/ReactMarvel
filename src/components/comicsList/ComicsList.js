@@ -8,11 +8,9 @@ const ComicsList = ()=>{
 
     const [comics, setComics] = useState([]);
     const [offset, setOffset] = useState(52693);
-    const {spinner, error, resPostAllComics} = useGetComicsData()
-    const {activeBTN, setActiveBTN} = useState(true);
+    const [hideBTN, setHideBTN] = useState(false);
+    const {spinner, error, resPostAllComics} = useGetComicsData();
 
-
-    
     useEffect(()=>{
         getServerComics();
     // eslint-disable-next-line
@@ -27,12 +25,9 @@ const ComicsList = ()=>{
     const onAddComics = (newComics) => {
         setComics([...comics, ...newComics]);
         setOffset(offset + 9);
-        console.log(comics);
-        if(newComics.length < 9) {
-            setActiveBTN(true);
-            console.log(activeBTN);
-        }
-        
+        if(newComics.length < 8) {
+            setHideBTN(true);            
+        }        
     }
     
     const li =  comics.map(item => {
@@ -50,7 +45,6 @@ const ComicsList = ()=>{
 
     const errorIcon = error ? <Error/> : null
     const spinnerIcon = spinner ? <Spinner/> : null
-    
 
         return (
             <div className="comics__list">
@@ -61,6 +55,7 @@ const ComicsList = ()=>{
                 </ul>
                 <button
                 onClick={()=> {getServerComics(offset)}}
+                style={{display: hideBTN ? "none" : "block"}}
                 className="button button__main button__long">
                     <div className="inner">load more</div>
                 </button>

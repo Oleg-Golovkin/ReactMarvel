@@ -61,9 +61,8 @@ const CharList = ({getId}) => {
              // 5з объединяем массив с загруженными персонажами с 
             //     // массивом очередных погружаемых
             setChars([...chars, ...plusChars ]);
-            setNoActiveBTN();            
-
-        } 
+            setNoActiveBTN();
+    } 
         // Если персонажи закончились
         if (plusChars.length < 9) {
             setFinishedChars(true); 
