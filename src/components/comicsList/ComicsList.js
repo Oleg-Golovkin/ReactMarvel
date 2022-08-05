@@ -9,6 +9,7 @@ const ComicsList = ()=>{
     const [comics, setComics] = useState([]);
     const [offset, setOffset] = useState(52693);
     const {spinner, error, resPostAllComics} = useGetComicsData()
+    const {activeBTN, setActiveBTN} = useState(true);
 
 
     
@@ -27,6 +28,11 @@ const ComicsList = ()=>{
         setComics([...comics, ...newComics]);
         setOffset(offset + 9);
         console.log(comics);
+        if(newComics.length < 9) {
+            setActiveBTN(true);
+            console.log(activeBTN);
+        }
+        
     }
     
     const li =  comics.map(item => {
@@ -44,7 +50,6 @@ const ComicsList = ()=>{
 
     const errorIcon = error ? <Error/> : null
     const spinnerIcon = spinner ? <Spinner/> : null
-    console.log(error);
     
 
         return (
