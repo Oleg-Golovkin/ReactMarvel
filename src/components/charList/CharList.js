@@ -7,7 +7,7 @@ import Spinner from "../Spinner/spinner"
 import Error from "../error/error.js"
 import useGetMarvelData from '../../services/GetMarvelData';
 
-const CharList = ({getId}) => {    
+const CharList = ({getId, showCharList}) => {    
 
     const [chars, setChars] = useState([]);
     const [counter, setCounter] = useState(1548);
@@ -21,8 +21,7 @@ const CharList = ({getId}) => {
     useEffect(()=> {
         getServerChars();
     // eslint-disable-next-line            
-    }, [])
-    
+    }, [])    
 
     // 2п Поскольку при подгрузке персонажей меняем состояние
     // автоматически вызывается этот метод жизненного цикла компанента, 
@@ -30,8 +29,7 @@ const CharList = ({getId}) => {
     useEffect(()=>{
         getServerChars();
     // eslint-disable-next-line
-    }, [counter])
-    
+    }, [counter])    
 
     // Метод загрузки персонажей.
     // 1з действия при загруке персонажей. 
@@ -120,7 +118,9 @@ const CharList = ({getId}) => {
                 )                
             });   
     return (
-        <div className="char__list">
+        <div
+        style={{display: showCharList? "grid" : 'none'}}
+        className="char__list">
             <ul className="char__grid">
                 {li}
                 {spinnerBlock}

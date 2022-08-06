@@ -9,12 +9,7 @@ import Skeleton from "../skeleton/Skeleton"
 import useGetMarvelData from '../../services/GetMarvelData';
 
 
-const CharInfo = ({id}) => {
-    // state = {
-    //     char: null,
-    //     error: false,
-    //     spinner: false
-    // }
+const CharInfo = ({id, showCharList}) => {    
     
     const [char, setChar] = useState(); 
 
@@ -40,43 +35,23 @@ const CharInfo = ({id}) => {
             // .then(char=> this._setState(char)) длинная запись;
             .then(_creationChar)
         clearError()
-    }    
-
-    // componentDidMount(){
-    //     this.changeCharacter();
-    // }
+    }  
     
     useEffect(()=>{
         changeCharacter();    
     // Чтобы по следующей строке не выскакивала ошибка
     // eslint-disable-next-line
-    }, []) 
+    }, [])
 
-    // componentDidUpdate(prevProps) {       
-    //     if(this.props.id !== prevProps.id) {
-    //         this.changeCharacter();
-    //     }        
-    // }
+    
     useEffect(()=>{
         changeCharacter();    
     // Чтобы по следующей строке не выскакивала ошибка
      // eslint-disable-next-line
     }, [id])
 
-
-    // _setStateError = () => {
-    //     this.setState({
-    //         error: true,
-    //         spinner: false
-    //     })        
-    // }
-
     const _creationChar = (char) => {
-        setChar(char);
-        // this.setState({
-        //     char,
-        //     spinner: false,
-        // })
+        setChar(char);       
     }
 
     // Если спиннер в позиции true то показывается он
@@ -89,8 +64,11 @@ const CharInfo = ({id}) => {
     // Если отключены спиннер, ошибка и выбран персонаж, то показывается
     // персонаж
     const charInfo = !(spinner || error || !char) ? <Char char = {char}/> : null
+    
     return (
-        <div className="char__info">               
+        <div 
+        style={{display: showCharList ? 'block' : 'none'}}
+        className="char__info">               
             {skeleton}
             {loading}
             {charInfo}

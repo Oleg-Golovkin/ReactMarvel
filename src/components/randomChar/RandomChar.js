@@ -10,7 +10,7 @@ import { useState, useEffect} from 'react';
 import ErrorBoundary from "../errorBoundary/ErrorBoundary";
 
 
-const RandomChar = () => {  
+const RandomChar = ({showCharList}) => {  
     // Записываем состояние в отдельное совойство, 
     // а не в корень, чтобы иметь возможность расширять 
      // состояния дописывая в него новые свойства
@@ -45,10 +45,7 @@ const RandomChar = () => {
         
             // Поведение ошибки прописано в resPostCharacter=>request=>
     }
-
-    // componentDidMount(){
-    //     this.changeCharacter();
-    // }
+    
     useEffect(()=> {
         changeCharacter();    
     // Чтобы по следующей строке не выскакивала ошибка
@@ -62,7 +59,9 @@ const RandomChar = () => {
     const errorBlock = error ? <Error/> : null
 
     return (
-        <div className="randomchar">
+        <div
+        style={{display: showCharList ? 'grid' : 'none'}}
+        className="randomchar">
             <ErrorBoundary setError={setError}
                             error = {error}>
                 {spinnerBlock}

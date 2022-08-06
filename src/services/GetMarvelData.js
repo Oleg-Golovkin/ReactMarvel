@@ -8,15 +8,16 @@ const useGetMarvelData = ()=> {
     elit. Impedit omnis qui fugit illum, voluptate iusto consequatur 
     rem officia doloribus eveniet quaerat odit exercitationem corporis,
     cum sit molestias, delectus officiis veniam?`;
-    const baseСharacter = 210;     
+    const offsetOffset = 0;     
     
     const {request, spinner, error, setError, clearError} = useHttp();
 
+// Код для загрузки персонажей
+    
     // Не обязательно. Чтобы иметь возможность обращаться
     // к разным адресам
-    // Обращение к группе персонажей
-    
-        const resPostAllCharacter = async (offsetCharacter = baseСharacter) => {        
+    // Обращение к группе персонажей    
+    const resPostAllCharacter = async (offsetCharacter = offsetOffset) => {        
         try {  
             const data = await request(`
             ${address}characters?limit=9&offset=${offsetCharacter}&${apikey}`
@@ -26,30 +27,32 @@ const useGetMarvelData = ()=> {
             // берем каждый объект и извлекаем из него необходимые свойства.
             // В this._transformation не записываем аргумент, по скольку он туда
             // передается по умолчанию
-            return await data.data.results.map(_transformation)
+            return await data.data.results.map(_transformationCharacter)
         } catch(e){}        
     }
 
     // Не обязательно. Чтобы иметь возможность обращаться
     // к разным адресам
     // Обращение к персонажу по id
-        const resPostCharacter = async (id) => {
-            try { 
-            const data = await request(`
-            ${address}characters/${id}?${apikey}`
-            )
-            return  _transformation(await data.data.results[0]);
-            } catch(e){} 
-        }
-   
-
+    const resPostCharacter = async (id) => {
+        try { 
+        const data = await request(`
+        ${address}characters/${id}?${apikey}`
+        )
+        return  _transformationCharacter(await data.data.results[0]);
+        } catch(e){} 
+    }
+    // Если описание персонажей приоходит пустое, то эта пустота
+    // заменяется рондомным текстом
     const _сorrectionDescription = (description) => {
         if (description === "") {
             return description = lorem.slice(0, 200) + "..."
         }
     }
 
-    const _transformation = (char) => {
+    //------------Вычленениe нужных данных из тех, которые приходят с 
+    //сервера-------------------------------------------------------
+    const _transformationCharacter = (char) => {
         return{
             name: char.name,
             img: char.thumbnail.path + "." + char.thumbnail.extension,
@@ -58,11 +61,41 @@ const useGetMarvelData = ()=> {
             wiki: char.urls[1].url,
             id: char.id,
             comics: char.comics.items
-        }
-        
+        }        
     }
 
-    return { spinner, error, setError, clearError, resPostAllCharacter, resPostCharacter}
+
+
+
+// Часть кода, которая относится к данным комиксов
+    const resPostAllComics = async (offset = 0)=> {
+        try{
+            const aray = await request(`            
+            ${address}comics?limit=8&offset=${offset}&${apikey}`)
+            return await aray.data.results.map(transformationComics)
+        } catch(e){}
+    }
+    //------------Вычленениe нужных данных из тех, которые приходят с 
+    //сервера-------------------------------------------------------
+    const transformationComics = (answer) => {
+        return {
+            title: answer.title,
+            prices: answer.prices[0].price,
+            img: answer.thumbnail.path + '.' + answer.thumbnail.extension,
+            id: answer.id,
+            urls: answer.urls
+        }
+    }
+
+    return { 
+        spinner, 
+        error, 
+        setError, 
+        clearError, 
+        resPostAllCharacter, 
+        resPostCharacter,
+        resPostAllComics    
+    }
 }
 
 

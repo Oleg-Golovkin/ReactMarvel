@@ -1,28 +1,30 @@
 import './comicsList.scss';
-import useGetComicsData from "../../services/GetComicsData";
+import useGetMarvelData from "../../services/GetMarvelData";
 import { useState, useEffect } from 'react';
 import Spinner from "../Spinner/spinner"
 import Error from "../error/error.js"
 
-const ComicsList = ()=>{
+const ComicsList = ({showComicsList})=>{
 
     const [comics, setComics] = useState([]);
     const [offset, setOffset] = useState(52693);
     const [hideBTN, setHideBTN] = useState(false);
-    const {spinner, error, resPostAllComics} = useGetComicsData();
+    const {spinner, error, resPostAllComics, clearError} = useGetMarvelData();
 
-    useEffect(()=>{
-        getServerComics();
+    useEffect(()=>{        
+            getServerComics();        
     // eslint-disable-next-line
     }, [])
 
     const getServerComics = (offset)=> {
         console.log(offset);
+        clearError();
         resPostAllComics(offset)
         .then(onAddComics)
     }
 
     const onAddComics = (newComics) => {
+        console.log(comics);
         setComics([...comics, ...newComics]);
         setOffset(offset + 9);
         if(newComics.length < 8) {
@@ -47,7 +49,9 @@ const ComicsList = ()=>{
     const spinnerIcon = spinner ? <Spinner/> : null
 
         return (
-            <div className="comics__list">
+            <div
+            style={{display: showComicsList ? 'grid' : 'none'}}
+            className="comics__list">
                 <ul className="comics__grid">
                 {li}
                 {errorIcon}
