@@ -9,7 +9,7 @@ import Skeleton from "../skeleton/Skeleton"
 import useGetMarvelData from '../../services/GetMarvelData';
 
 
-const CharInfo = ({id, showCharList}) => {    
+const CharInfo = ({id}) => {    
     
     const [char, setChar] = useState(); 
 
@@ -67,7 +67,6 @@ const CharInfo = ({id, showCharList}) => {
     
     return (
         <div 
-        style={{display: showCharList ? 'block' : 'none'}}
         className="char__info">               
             {skeleton}
             {loading}

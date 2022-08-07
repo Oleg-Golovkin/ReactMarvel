@@ -50,7 +50,6 @@ const ComicsList = ({showComicsList})=>{
 
         return (
             <div
-            style={{display: showComicsList ? 'grid' : 'none'}}
             className="comics__list">
                 <ul className="comics__grid">
                 {li}

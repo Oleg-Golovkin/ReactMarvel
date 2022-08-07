@@ -7,7 +7,7 @@ import Spinner from "../Spinner/spinner"
 import Error from "../error/error.js"
 import useGetMarvelData from '../../services/GetMarvelData';
 
-const CharList = ({getId, showCharList}) => {    
+const CharList = ({getId}) => {    
 
     const [chars, setChars] = useState([]);
     const [counter, setCounter] = useState(1548);
@@ -119,7 +119,6 @@ const CharList = ({getId, showCharList}) => {
             });   
     return (
         <div
-        style={{display: showCharList? "grid" : 'none'}}
         className="char__list">
             <ul className="char__grid">
                 {li}

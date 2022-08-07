@@ -1,24 +1,22 @@
 import './appHeader.scss';
 
-const AppHeader = ({onShowComicsList, onShowCharList}) => {
+import {Link, NavLink} from "react-router-dom";
+
+
+const AppHeader = () => {
     return (
         <header className="app__header">
             <h1 className="app__title">
-                <button href="#">
+                <NavLink activeStyle={{color: "red"}} exact  to="/">
                     <span>Marvel</span> information portal
-                </button>
+                </NavLink>
             </h1>
             <nav className="app__menu">
                 <ul>
-                    <li><button 
-                    onClick={onShowCharList}
-                    href="#">Characters
-                    </button></li>
+                    <li><NavLink activeStyle={{color: "red"}} exact to="/comics">Characters
+                    </NavLink></li>
                     /
-                    <li><button 
-                    href="#"
-                    onClick={onShowComicsList}
-                    >Comics</button></li>
+                    <li><NavLink activeStyle={{color: "red"}} exact  to="/">Comics</NavLink></li>
                 </ul>
             </nav>
         </header>
