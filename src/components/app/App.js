@@ -1,26 +1,21 @@
 import AppHeader from "../appHeader/AppHeader";
-import RandomChar from "../randomChar/RandomChar";
-import CharList from "../charList/CharList";
-import CharInfo from "../charInfo/CharInfo";
-import ErrorBoundary from "../errorBoundary/ErrorBoundary";
-import ComicsList from "../comicsList/ComicsList"
+// import RandomChar from "../randomChar/RandomChar";
+// import CharList from "../charList/CharList";
+// import CharInfo from "../charInfo/CharInfo";
+// import ErrorBoundary from "../errorBoundary/ErrorBoundary";
+// import ComicsList from "../comicsList/ComicsList"
+import {ComicsPage, MainPage} from "../pages"
+
 import {
     BrowserRouter as Router,
     Switch,
     Route,
-    Link
     } from "react-router-dom";
 
-import decoration from '../../resources/img/vision.png';
 
-import { useState } from "react";
 
 const App = () => {
-    const [id, setId] = useState(null);
-    
-    function getId(num){
-        setId(num)
-    }    
+     
 
     return (
         //1. Маршрутизатор - оборачивать всю страницу.
@@ -38,32 +33,15 @@ const App = () => {
                         3.2. exact атрибут - чтобы было конкретное совпадение адреса.
                         Без него path ищет плохо*/}
                             <Route exact path="/"> 
-                                <RandomChar/>
-                                <div className="char__content">
-                                    <ErrorBoundary>
-                                        <CharList 
-                                        getId = {getId}
-                                        id = {id}                        
-                                        />
-                                    </ErrorBoundary> 
-                                    <ErrorBoundary>
-                                        <CharInfo                         
-                                        id = {id}
-                                        />
-                                    </ErrorBoundary>
-                                </div>
-                                <img className="bg-decoration" src={decoration} alt="vision"/>
+                                <MainPage/>
                             </Route>
                             <Route exact path="/comics">
-                                <ErrorBoundary>
-                                    <ComicsList/>
-                                </ErrorBoundary>
+                            <ComicsPage/>
                             </Route>
                     </Switch>
                 </main>
             </div>
         </Router>
-       
     )    
 }
 
