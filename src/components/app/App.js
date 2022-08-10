@@ -8,8 +8,8 @@ import {ComicsPage, MainPage} from "../pages"
 
 import {
     BrowserRouter as Router,
-    Switch,
     Route,
+    Routes
     } from "react-router-dom";
 
 
@@ -25,20 +25,16 @@ const App = () => {
                 <AppHeader/>
                 <main>
                     {/* 3. Переключатель маршрутов*/}
-                    <Switch>
+                    <Routes>
                         {/*3. Маршрут - в нем прописываем маршрут.
                         3.1 path атрибут - в нем пишем адрес (не файла с 
                         компонентом, а создаем свой адрес). Адрес пишем в 
                         кавычках.
                         3.2. exact атрибут - чтобы было конкретное совпадение адреса.
                         Без него path ищет плохо*/}
-                            <Route exact path="/"> 
-                                <MainPage/>
-                            </Route>
-                            <Route exact path="/comics">
-                            <ComicsPage/>
-                            </Route>
-                    </Switch>
+                            <Route path="/" element={<MainPage/>}/>                                
+                            <Route path="/comics" element={<ComicsPage/>}/>
+                    </Routes>
                 </main>
             </div>
         </Router>
