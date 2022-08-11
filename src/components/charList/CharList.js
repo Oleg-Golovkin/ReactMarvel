@@ -109,9 +109,7 @@ const CharList = ({getId}) => {
                         onInstallationIdChars(item.id)
                     }
                     
-                }}
-                
-                >
+                }}>
                     <img style={styleRandomchar} src={item.img} alt="abyss"/>
                     <div className="char__name">{item.name}</div>
                 </li>

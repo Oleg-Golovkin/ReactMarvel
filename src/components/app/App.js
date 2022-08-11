@@ -1,10 +1,7 @@
 import AppHeader from "../appHeader/AppHeader";
-// import RandomChar from "../randomChar/RandomChar";
-// import CharList from "../charList/CharList";
-// import CharInfo from "../charInfo/CharInfo";
-// import ErrorBoundary from "../errorBoundary/ErrorBoundary";
-// import ComicsList from "../comicsList/ComicsList"
 import {ComicsPage, MainPage} from "../pages"
+import Page404 from "../pages/Page404";
+import SingleComic from "../pages/SingleComic"
 
 import {
     BrowserRouter as Router,
@@ -15,8 +12,6 @@ import {
 
 
 const App = () => {
-     
-
     return (
         //1. Маршрутизатор - оборачивать всю страницу.
         // Чтобы были рабочими все ссылки
@@ -34,6 +29,8 @@ const App = () => {
                         Без него path ищет плохо*/}
                             <Route path="/" element={<MainPage/>}/>                                
                             <Route path="/comics" element={<ComicsPage/>}/>
+                            <Route path="/comics/:id" element={<SingleComic/>}/>                                
+                            <Route path="*" element={<Page404/>}/>                                
                     </Routes>
                 </main>
             </div>

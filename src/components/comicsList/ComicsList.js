@@ -3,6 +3,7 @@ import useGetMarvelData from "../../services/GetMarvelData";
 import { useState, useEffect } from 'react';
 import Spinner from "../Spinner/spinner"
 import Error from "../error/error.js"
+import { NavLink } from 'react-router-dom';
 
 const ComicsList = ({showComicsList})=>{
 
@@ -33,15 +34,15 @@ const ComicsList = ({showComicsList})=>{
     }
     
     const li =  comics.map(item => {
-            const {title, img, prices, id, urls} = item
+            const {title, img, prices, id} = item
             return(
-                <li key={id} className="comics__item">
-                    <a href={urls}>
-                        <img src={img} alt="ultimate war" className="comics__item-img"/>
-                        <div className="comics__item-name">{title}</div>
-                        <div className="comics__item-price">{prices}</div>
-                    </a>
-                </li>
+                    <li key={id} className="comics__item">
+                        <NavLink to={`/comics/${id}`}>
+                            <img src={img} alt="ultimate war" className="comics__item-img"/>
+                            <div className="comics__item-name">{title}</div>
+                            <div className="comics__item-price">{prices}</div>
+                        </NavLink>
+                    </li>
             )
         }) 
 
