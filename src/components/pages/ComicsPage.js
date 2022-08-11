@@ -2,11 +2,11 @@ import ErrorBoundary from "../errorBoundary/ErrorBoundary";
 import ComicsList from "../comicsList/ComicsList"
 
 
-const ComicsPage = () => {
+const ComicsPage = ({getId}) => {
     return(
         <>
             <ErrorBoundary>
-                <ComicsList/>
+                <ComicsList getId={getId}/>
             </ErrorBoundary>
         </> 
     )

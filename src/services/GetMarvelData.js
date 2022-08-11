@@ -3,6 +3,7 @@ import useHttp from "../components/hooks/useHttp"
 const useGetMarvelData = ()=> {
     
     const address = 'https://gateway.marvel.com:443/v1/public/';
+
     const apikey = 'apikey=827ef5444e9fbf654e8fa51f975d051a';
     const lorem = `Lorem ipsum dolor sit amet consectetur adipisicing
     elit. Impedit omnis qui fugit illum, voluptate iusto consequatur 
@@ -67,13 +68,24 @@ const useGetMarvelData = ()=> {
 
 
 
-// Часть кода, которая относится к данным комиксов
+    // Часть кода, которая относится к данным комиксов
     const resPostAllComics = async (offset = 0)=> {
         try{
             const aray = await request(`            
             ${address}comics?limit=8&offset=${offset}&${apikey}`)
             return await aray.data.results.map(transformationComics)
         } catch(e){}
+    }
+
+    const resPostComics = async (id) => {
+        try {
+    // https://gateway.marvel.com:443/v1/public/comics/82965?apikey=827ef5444e9fbf654e8fa51f975d051a
+ 
+        const data = await request(`
+
+        ${address}comics/${id}?${apikey}`)
+        return transformationComics(await data.data.results[0]);
+        } catch(e){} 
     }
     //------------Вычленениe нужных данных из тех, которые приходят с 
     //сервера-------------------------------------------------------
@@ -94,7 +106,8 @@ const useGetMarvelData = ()=> {
         clearError, 
         resPostAllCharacter, 
         resPostCharacter,
-        resPostAllComics    
+        resPostAllComics,
+        resPostComics   
     }
 }
 

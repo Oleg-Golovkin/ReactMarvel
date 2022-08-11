@@ -5,7 +5,7 @@ import Spinner from "../Spinner/spinner"
 import Error from "../error/error.js"
 import { NavLink } from 'react-router-dom';
 
-const ComicsList = ({showComicsList})=>{
+const ComicsList = ({getId})=>{
 
     const [comics, setComics] = useState([]);
     const [offset, setOffset] = useState(52693);
@@ -25,7 +25,6 @@ const ComicsList = ({showComicsList})=>{
     }
 
     const onAddComics = (newComics) => {
-        console.log(comics);
         setComics([...comics, ...newComics]);
         setOffset(offset + 9);
         if(newComics.length < 8) {

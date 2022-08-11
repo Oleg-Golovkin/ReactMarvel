@@ -1,7 +1,6 @@
 import AppHeader from "../appHeader/AppHeader";
-import {ComicsPage, MainPage} from "../pages"
+import {ComicsPage, MainPage, SingleComic} from "../pages"
 import Page404 from "../pages/Page404";
-import SingleComic from "../pages/SingleComic"
 
 import {
     BrowserRouter as Router,
@@ -9,9 +8,16 @@ import {
     Routes
     } from "react-router-dom";
 
+import { useState } from "react";
+
 
 
 const App = () => {
+    const [id, setId] = useState(null);
+    
+    function getId(num){
+        setId(num)
+    } 
     return (
         //1. Маршрутизатор - оборачивать всю страницу.
         // Чтобы были рабочими все ссылки
@@ -28,7 +34,7 @@ const App = () => {
                         3.2. exact атрибут - чтобы было конкретное совпадение адреса.
                         Без него path ищет плохо*/}
                             <Route path="/" element={<MainPage/>}/>                                
-                            <Route path="/comics" element={<ComicsPage/>}/>
+                            <Route path="/comics" element={<ComicsPage getId= {getId}/>}/>
                             <Route path="/comics/:id" element={<SingleComic/>}/>                                
                             <Route path="*" element={<Page404/>}/>                                
                     </Routes>
