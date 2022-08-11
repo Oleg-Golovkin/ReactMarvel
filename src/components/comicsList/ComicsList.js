@@ -36,7 +36,7 @@ const ComicsList = ({getId})=>{
             const {title, img, prices, id} = item
             return(
                     <li key={id} className="comics__item">
-                        <NavLink to={`/comics/${id}`}>
+                        <NavLink to={`/comics/${title}`}>
                             <img src={img} alt="ultimate war" className="comics__item-img"/>
                             <div className="comics__item-name">{title}</div>
                             <div className="comics__item-price">{prices}</div>

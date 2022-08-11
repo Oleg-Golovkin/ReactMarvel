@@ -15,7 +15,7 @@ const SingleComic = () => {
 
     useEffect(()=>{        
             getServerComics();
-            console.log(path.id);        
+            console.log(path);        
     // eslint-disable-next-line
     }, [])
 
