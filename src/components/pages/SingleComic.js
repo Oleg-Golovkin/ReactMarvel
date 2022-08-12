@@ -8,14 +8,12 @@ import { useParams } from 'react-router-dom';
 
 const SingleComic = () => {
     const [comics, setComics] = useState({});
-    const [offset, setOffset] = useState(52693);
-    const [hideBTN, setHideBTN] = useState(false);
     const {spinner, error, resPostComics, clearError} = useGetMarvelData();
     const path = useParams();
 
     useEffect(()=>{        
             getServerComics();
-            console.log(path);        
+            console.log(path.id);        
     // eslint-disable-next-line
     }, [])
 
@@ -23,16 +21,11 @@ const SingleComic = () => {
         clearError();
         resPostComics(path.id)
         .then(onAddComics)
-        console.log(comics);
     }
 
     const onAddComics = (newComics) => {
         console.log(newComics);
         setComics(newComics);
-        setOffset(offset + 9);
-        if(newComics.length < 8) {
-            setHideBTN(true);            
-        }        
     }
     const {title, img, prices, id} = comics
 

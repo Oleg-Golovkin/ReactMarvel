@@ -18,7 +18,6 @@ const ComicsList = ({getId})=>{
     }, [])
 
     const getServerComics = (offset)=> {
-        console.log(offset);
         clearError();
         resPostAllComics(offset)
         .then(onAddComics)
@@ -36,7 +35,7 @@ const ComicsList = ({getId})=>{
             const {title, img, prices, id} = item
             return(
                     <li key={id} className="comics__item">
-                        <NavLink to={`/comics/${title}`}>
+                        <NavLink to={`/comics/${id}`}>
                             <img src={img} alt="ultimate war" className="comics__item-img"/>
                             <div className="comics__item-name">{title}</div>
                             <div className="comics__item-price">{prices}</div>
