@@ -13,7 +13,6 @@ const SingleComic = () => {
 
     useEffect(()=>{        
             getServerComics();
-            console.log(path.id);        
     // eslint-disable-next-line
     }, [])
 
@@ -29,9 +28,13 @@ const SingleComic = () => {
     }
     const {title, img, prices, id} = comics
 
-    return (
- 
-        <div className="single-comic">
+    const errorIcon = error ? <Error/> : null
+    const spinnerIcon = spinner ? <Spinner/> : null
+
+
+    const Comic = ()=> {
+        return(
+            <div className="single-comic">
             <img src={img} alt="x-men" className="single-comic__img"/>
             <div className="single-comic__info">
                 <h2 className="single-comic__name">{title}</h2>
@@ -41,7 +44,14 @@ const SingleComic = () => {
                 <div className="single-comic__price">{prices}</div>
             </div>
             <a href="#" className="single-comic__back">Back to all</a>
-        </div>
+        </div>  
+        )
+    }
+
+    return (
+        <>
+            <Comic/>
+        </>
     )
 }
 
