@@ -16,17 +16,17 @@ const MainPage = () => {
         <>
             <RandomChar/>
             <div className="char__content">
-                <ErrorBoundary>
-                    <CharList 
-                    getId = {getId}
-                    id = {id}                        
-                    />
-                </ErrorBoundary> 
-                <ErrorBoundary>
-                    <CharInfo                         
-                    id = {id}
-                    />
-                </ErrorBoundary>
+            <ErrorBoundary>
+                <CharList 
+                getId = {getId}
+                id = {id}                        
+                />
+            </ErrorBoundary> 
+            <ErrorBoundary>
+                <CharInfo                         
+                id = {id}
+                />
+            </ErrorBoundary>
             </div>
             <img className="bg-decoration" src={decoration} alt="vision"/>
         </>

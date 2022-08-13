@@ -1,11 +1,11 @@
 import './singleComic.scss';
-import xMen from '../../resources/img/x-men.png';
 import useGetMarvelData from "../../services/GetMarvelData";
-import { useState, useEffect } from 'react';
 import Spinner from "../Spinner/spinner"
 import Error from "../error/error.js"
-import { useParams } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import ErrorBoundary from "../errorBoundary/ErrorBoundary";
 
+import { useParams } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 
 const SingleComic = () => {
@@ -32,17 +32,19 @@ const SingleComic = () => {
 
     const Comic = () => {
         return(
-            <div className="single-comic">
-                <img src={img} alt="x-men" className="single-comic__img"/>
-                <div className="single-comic__info">
-                    <h2 className="single-comic__name">{title}</h2>
-                    <p className="single-comic__descr">Re-live the legendary first journey into the dystopian future of 2013 - where Sentinels stalk the Earth, and the X-Men are humanity's only hope...until they die! Also featuring the first appearance of Alpha Flight, the return of the Wendigo, the history of the X-Men from Cyclops himself...and a demon for Christmas!?</p>
-                    <p className="single-comic__descr">144 pages</p>
-                    <p className="single-comic__descr">Language: en-us</p>
-                    <div className="single-comic__price">{prices}</div>
-                </div>
-                <NavLink to="/comics" className="single-comic__back">Back to all</NavLink>
-            </div>  
+            <ErrorBoundary>
+                <div key={id} className="single-comic">
+                    <img src={img} alt="x-men" className="single-comic__img"/>
+                    <div className="single-comic__info">
+                        <h2 className="single-comic__name">{title}</h2>
+                        <p className="single-comic__descr">Re-live the legendary first journey into the dystopian future of 2013 - where Sentinels stalk the Earth, and the X-Men are humanity's only hope...until they die! Also featuring the first appearance of Alpha Flight, the return of the Wendigo, the history of the X-Men from Cyclops himself...and a demon for Christmas!?</p>
+                        <p className="single-comic__descr">144 pages</p>
+                        <p className="single-comic__descr">Language: en-us</p>
+                        <div className="single-comic__price">{prices}</div>
+                    </div>
+                    <NavLink to="/comics" className="single-comic__back">Back to all</NavLink>
+                </div> 
+            </ErrorBoundary> 
         )
     };
 
