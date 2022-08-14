@@ -22,9 +22,8 @@ const ComicsList = ()=>{
         resPostAllComics(offset)
         .then(onAddComics)
     }
-
     const onAddComics = (newComics) => {
-        setComics([...comics, ...newComics]);
+        setComics([...comics, ...newComics]);   
         setOffset(offset + 9);
         if(newComics.length < 8) {
             setHideBTN(true);            
@@ -46,14 +45,17 @@ const ComicsList = ()=>{
 
     const errorIcon = error ? <Error/> : null
     const spinnerIcon = spinner ? <Spinner/> : null
-
+    // Здесь не нужно проверять на третье условие, мол чтобы спиннер и 
+    // ошибка были выключены, поскольку будет создана новая переменная и перересован
+    // компонент в момент загруки. И в этот момент верстка будет прыгать, т.е. не будет
+    // плавно добавляться компонент.
         return (
             <div
             className="comics__list">
                 <ul className="comics__grid">
-                {li}
                 {errorIcon}
-                {spinnerIcon}
+                {li} 
+                {spinnerIcon}               
                 </ul>
                 <button
                 onClick={()=> {getServerComics(offset)}}

@@ -4,7 +4,7 @@ const useGetMarvelData = ()=> {
     
     const address = 'https://gateway.marvel.com:443/v1/public/';
 
-    const apikey = 'apikey=827ef5444e9fbf654e8fa51f975d051a';
+    const apikey = 'apikey=827ef5444e9fbf654e8fa51f975d051';
     const lorem = `Lorem ipsum dolor sit amet consectetur adipisicing
     elit. Impedit omnis qui fugit illum, voluptate iusto consequatur 
     rem officia doloribus eveniet quaerat odit exercitationem corporis,

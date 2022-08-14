@@ -70,7 +70,44 @@ const CharList = ({getId}) => {
     
     const onInstallationIdChars = (num)=> {        
         setActiveCardChars(num)
-    }    
+    } 
+    // Создание повторяющейся верстки с различным содержанием - разными пероснажами
+    const li = chars.map((item, i) => {                
+        let styleRandomchar = {};   
+        if(item.img === 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg') {
+            styleRandomchar = {objectFit: "contain"}
+        } else {
+            styleRandomchar = {objectFit: "cover"}
+        }
+        // Для выделения нажимаемой карты с персонажем Charachter
+        // Если id нажимаемого персонажа равен id из id из состояния 
+        // activeCardChars, то в эту переменную записывается tru
+        let active = activeCardChars === item.id
+        const clazz = active ? "char__item_selected" : ""
+        return(
+            <li
+            onClick={()=> {
+                // Для помещения id в головной файл app 
+                getId(item.id)
+                // Для помещения id в состояние этого файла 
+                onInstallationIdChars(item.id)}}
+            className = {`char__item ${clazz}`}
+            // Каждой карточке присваиваем порядковый номер, чтобы была возможность
+            // выбрать карточнку а клавиатуре
+            tabIndex={i+1}
+            key={item.id}
+            onKeyPress={(e) => {                        
+                if (e.key === ' ' || e.key === "Enter") {
+                    getId(item.id)
+                    onInstallationIdChars(item.id)
+                }
+                
+            }}>
+                <img style={styleRandomchar} src={item.img} alt="abyss"/>
+                <div className="char__name">{item.name}</div>
+            </li>
+            )                
+        });   
     
     // Показ различных элементов при отсутствии доступа к серверу error,
     // удачной загрузке персонажей chars, персонажи закончились finishedChars,
@@ -78,43 +115,7 @@ const CharList = ({getId}) => {
     // const {chars, error, spinner, noActiveBTN, finishedChars} = this.state;
     const spinnerBlock = spinner ? <Spinner/> : null
     const errorBlock = error ? <Error/> : null
-    // Создание повторяющейся верстки с различным содержанием - разными пероснажами
-    let li = chars.map((item, i) => {                
-            let styleRandomchar = {};   
-            if(item.img === 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg') {
-                styleRandomchar = {objectFit: "contain"}
-            } else {
-                styleRandomchar = {objectFit: "cover"}
-            }
-            // Для выделения нажимаемой карты с персонажем Charachter
-            // Если id нажимаемого персонажа равен id из id из состояния 
-            // activeCardChars, то в эту переменную записывается tru
-            let active = activeCardChars === item.id
-            const clazz = active ? "char__item_selected" : ""
-            return(
-                <li
-                onClick={()=> {
-                    // Для помещения id в головной файл app 
-                    getId(item.id)
-                    // Для помещения id в состояние этого файла 
-                    onInstallationIdChars(item.id)}}
-                className = {`char__item ${clazz}`}
-                // Каждой карточке присваиваем порядковый номер, чтобы была возможность
-                // выбрать карточнку а клавиатуре
-                tabIndex={i+1}
-                key={item.id}
-                onKeyPress={(e) => {                        
-                    if (e.key === ' ' || e.key === "Enter") {
-                        getId(item.id)
-                        onInstallationIdChars(item.id)
-                    }
-                    
-                }}>
-                    <img style={styleRandomchar} src={item.img} alt="abyss"/>
-                    <div className="char__name">{item.name}</div>
-                </li>
-                )                
-            });   
+    
     return (
         <div
         className="char__list">

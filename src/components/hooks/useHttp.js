@@ -14,9 +14,7 @@
             try {
                 // Запрос данных на сервер 
                 const response =  await fetch(url, {method, body, headers});
-                // Поскольку в response будет возвращаться не ответ, а Promise, для получения
-                // данных прописываем еще переменную. .json() - метод преобразования полученных
-                // данных в формат json
+                
                 if (!response.ok) {
                     setError(true)
                 } else {

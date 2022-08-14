@@ -118,12 +118,9 @@ const Char = ({char}) => {
                         <li key={item.name} className="char__comics-item">
                             {item.name}
                         </li>
-                    )
-                    
-                })}
-                
-            </ul>
-        
+                    )                    
+                })}                
+            </ul>        
         </>
     )
 }
