@@ -1,6 +1,8 @@
+    // Импортируем хуки
     import {useState, useCallback} from "react"
 
     const useHttp = () => {
+        // Чтобы по умолчанию иконки загрузки и ошибки были выключены
         const [spinner, setSpinner] = useState(false);  
         const [error, setError] = useState(null);
         // 1. request - будет содержаться ответ от свервера. Далее в callback функции прописываем получение данных с 
@@ -19,7 +21,7 @@
                     setError(true)
                 } else {
                     setError(false)
-                };
+                };                
                 const data = await response.json()
                 // После загруки данных выключаем спиннер.
                 setSpinner(false)                
@@ -34,6 +36,8 @@
 
         const clearError =  useCallback(() => {
             return setError(null)
+        // Пустой массив для того, чтобы callback функция загружалась
+        // один раз
         }, []);
         return {request, spinner, error, setError, clearError};
     }

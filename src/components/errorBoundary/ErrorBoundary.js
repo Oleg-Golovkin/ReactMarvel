@@ -3,14 +3,20 @@ import Error from "../error/error";
 
 
 class ErrorBoundary extends Component {
-    
+    state = {
+        error: false
+    }
     
     componentDidCatch(){
-        this.props.setError(true)
+        // this.props.setError(true)
+        this.setState({
+            error: true
+        })
+        console.log("catch");
     }
 
     render() {
-        if(this.props.error) {
+        if(this.state.error) {
             return(
                 <>
                     <Error/>

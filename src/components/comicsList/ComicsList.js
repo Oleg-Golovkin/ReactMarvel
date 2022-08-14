@@ -5,8 +5,8 @@ import Spinner from "../Spinner/spinner"
 import Error from "../error/error.js"
 import { NavLink } from 'react-router-dom';
 
-const ComicsList = ()=>{
 
+const ComicsList = ()=>{
     const [comics, setComics] = useState([]);
     const [offset, setOffset] = useState(52693);
     const [hideBTN, setHideBTN] = useState(false);

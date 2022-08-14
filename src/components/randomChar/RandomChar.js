@@ -61,12 +61,9 @@ const RandomChar = () => {
     return (
         <div
         className="randomchar">
-            <ErrorBoundary setError={setError}
-                            error = {error}>
                 {spinnerBlock}
                 {charBlock}
                 {errorBlock}
-            </ErrorBoundary>
             <div className="randomchar__static">
                 <p className="randomchar__title">
                     Random character for today!<br/>
