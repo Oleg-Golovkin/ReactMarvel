@@ -7,7 +7,6 @@ import useGetMarvelData from '../../services/GetMarvelData'
 import Spinner from "../Spinner/spinner"
 import Error from "../error/error.js"
 import { useState, useEffect} from 'react';
-import ErrorBoundary from "../errorBoundary/ErrorBoundary";
 
 
 const RandomChar = () => {  
@@ -16,7 +15,7 @@ const RandomChar = () => {
      // состояния дописывая в него новые свойства
     const [char, setChar] = useState({});    
     
-    const {error, setError, spinner, clearError, resPostCharacter} = useGetMarvelData();
+    const {error, spinner, clearError, resPostCharacter} = useGetMarvelData();
 
     // Не обязательно. Выводим отдельную в функцию
     // запись состояния

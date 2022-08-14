@@ -1,4 +1,4 @@
-import { Component } from "react/cjs/react.production.min";
+import { Component } from "react";
 import Error from "../error/error";
 
 
@@ -7,13 +7,17 @@ class ErrorBoundary extends Component {
         error: false
     }
     
-    componentDidCatch(){
-        // this.props.setError(true)
+    componentDidCatch(error, errorInfo){
+        console.log(error, errorInfo);
         this.setState({
             error: true
         })
         console.log("catch");
     }
+    // static getDerivedStateFromError(error) {
+    //     // Обновите состояние так, чтобы следующий рендер показал запасной интерфейс.
+    //     return { error: true };
+    //   }
 
     render() {
         if(this.state.error) {

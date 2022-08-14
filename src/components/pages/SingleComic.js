@@ -3,7 +3,6 @@ import useGetMarvelData from "../../services/GetMarvelData";
 import Spinner from "../Spinner/spinner"
 import Error from "../error/error.js"
 import { useState, useEffect } from 'react';
-import ErrorBoundary from "../errorBoundary/ErrorBoundary";
 
 import { useParams } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
@@ -33,9 +32,9 @@ const SingleComic = () => {
     const spinnerIcon = spinner ? <Spinner/> : null
     const comic = !(error || spinner) ? <Comic comics={comics}/> : null   
     return (
-        <>            
-            {errorIcon}
-            {spinnerIcon}
+        <>
+            {spinnerIcon}            
+            {errorIcon}           
             {comic}
         </>
     )

@@ -55,7 +55,7 @@ const ComicsList = ()=>{
                 <ul className="comics__grid">
                 {errorIcon}
                 {li} 
-                {spinnerIcon}               
+                {spinnerIcon}     
                 </ul>
                 <button
                 onClick={()=> {getServerComics(offset)}}

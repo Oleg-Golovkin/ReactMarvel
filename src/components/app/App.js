@@ -1,7 +1,6 @@
 import AppHeader from "../appHeader/AppHeader";
 import {ComicsPage, MainPage, SingleComic} from "../pages"
 import Page404 from "../pages/Page404";
-import ErrorBoundary from "../errorBoundary/ErrorBoundary";
 
 import {
     BrowserRouter as Router,

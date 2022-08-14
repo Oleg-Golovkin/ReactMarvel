@@ -20,6 +20,7 @@ const CharList = ({getId}) => {
     // При загрузке страницы сразу подгружаем персонажей
     useEffect(()=> {
         getServerChars();
+        
     // eslint-disable-next-line            
     }, [])    
 
@@ -28,6 +29,7 @@ const CharList = ({getId}) => {
     // который подгружает еще персонажей
     useEffect(()=>{
         getServerChars();
+        
     // eslint-disable-next-line
     }, [counter])    
 
@@ -120,6 +122,7 @@ const CharList = ({getId}) => {
         <div
         className="char__list">
             <ul className="char__grid">
+                
                 {li}
                 {spinnerBlock}
                 {errorBlock}                    
