@@ -32,7 +32,6 @@ const SingleComic = () => {
     const errorIcon = error ? <Error/> : null
     const spinnerIcon = spinner ? <Spinner/> : null
     const comic = !(error || spinner) ? <Comic comics={comics}/> : null   
-    console.log(error);
     return (
         <>            
             {errorIcon}
