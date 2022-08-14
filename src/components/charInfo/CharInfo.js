@@ -51,7 +51,7 @@ const CharInfo = ({id}) => {
     }, [id])
 
     const _creationChar = (char) => {
-        setChar(char);       
+        setChar(char);
     }
 
     // Если спиннер в позиции true то показывается он
