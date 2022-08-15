@@ -23,6 +23,7 @@ const CharInfo = ({id}) => {
         if(!id) {
             return
         }
+        
         // Конструктор с запросом на сервер.       
         
         // Метод, в котором храниться в fetch        
@@ -45,13 +46,19 @@ const CharInfo = ({id}) => {
 
     
     useEffect(()=>{
-        changeCharacter();    
+        changeCharacter();
+        
+       
+            
+            
     // Чтобы по следующей строке не выскакивала ошибка
      // eslint-disable-next-line
     }, [id])
 
-    const _creationChar = (char) => {
+    const _creationChar = async (char) => {
         setChar(char);
+        import("./dynamic.js")
+            .then(obj=> obj.default())
     }
 
     // Если спиннер в позиции true то показывается он
