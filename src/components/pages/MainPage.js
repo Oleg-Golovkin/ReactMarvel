@@ -6,6 +6,8 @@ import ErrorBoundary from "../errorBoundary/ErrorBoundary";
 import decoration from '../../resources/img/vision.png';
 import { useState } from "react";
 
+
+
 const MainPage = () => {
     const [id, setId] = useState(null);
     
@@ -23,9 +25,10 @@ const MainPage = () => {
                 />
             </ErrorBoundary> 
             <ErrorBoundary>
-                <CharInfo                         
+            <CharInfo                         
                 id = {id}
-                />
+            />
+            
             </ErrorBoundary>
             </div>
             <img className="bg-decoration" src={decoration} alt="vision"/>

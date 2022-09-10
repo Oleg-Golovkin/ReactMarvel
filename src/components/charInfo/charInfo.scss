@@ -63,3 +63,30 @@
     }
 
 }
+
+// .my-node {
+//     opacity: 0;
+//     visibility: hidden;
+// }
+
+.my-node-enter {
+    opacity: 0;
+}
+.my-node-enter-active {
+    opacity: 1;
+    visibility:visible;
+    transition: all 1000ms;
+}
+.my-node-enter-done {
+    opacity: 1;
+    visibility:visible;
+    transition: all 1000ms;
+}
+.my-node-exit {
+    opacity: 1;
+    visibility:visible;
+}
+.my-node-exit-active {
+    opacity: 0;
+    transition: all 1000ms;
+}

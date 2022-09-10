@@ -7,14 +7,12 @@ import Spinner from "../Spinner/spinner"
 import Error from "../error/error.js"
 import Skeleton from "../skeleton/Skeleton"
 import useGetMarvelData from '../../services/GetMarvelData';
-
-
+import { CSSTransition } from 'react-transition-group'
 const CharInfo = ({id}) => {    
     
-    const [char, setChar] = useState(); 
-
+    const [char, setChar] = useState();
     const {error, spinner, clearError, resPostCharacter} = useGetMarvelData();
-
+    const [animate, setAnimate] = useState(null);
     const changeCharacter = () => {
         // Если id еще не выбран, то команды ниже не 
         // запустятся, поскольку сработает return
@@ -46,19 +44,18 @@ const CharInfo = ({id}) => {
 
     
     useEffect(()=>{
-        changeCharacter();
-        
-       
-            
-            
+        changeCharacter();            
+        if(id) {
+            setTimeout(()=> {setAnimate(false)}, 600)
+            setTimeout(()=> {setAnimate(true)}, 2000)
+
+        }
     // Чтобы по следующей строке не выскакивала ошибка
      // eslint-disable-next-line
     }, [id])
 
     const _creationChar = async (char) => {
         setChar(char);
-        import("./dynamic.js")
-            .then(obj=> obj.default())
     }
 
     // Если спиннер в позиции true то показывается он
@@ -71,15 +68,26 @@ const CharInfo = ({id}) => {
     // Если отключены спиннер, ошибка и выбран персонаж, то показывается
     // персонаж
     const charInfo = !(spinner || error || !char) ? <Char char = {char}/> : null
-    
-    return (
-        <div 
-        className="char__info">               
-            {skeleton}
-            {loading}
-            {charInfo}
-            {errorMessage}
-        </div>
+
+    return (   
+        <>
+            <CSSTransition
+                in={animate}
+                timeout={1000}
+                classNames="my-node"
+                >
+                    <div className="char__info my-node">          
+                        {loading}
+                        {charInfo}
+                        {errorMessage}   
+                        {skeleton}                     
+                    </div>            
+            </CSSTransition>            
+            
+        </>     
+        
+       
+        
     )
     
 }
@@ -111,11 +119,11 @@ const Char = ({char}) => {
                 </div>
             </div>
             <div className="char__descr">
-                {description}
+                                {description}
             </div>
             <div className="char__comics">
                 {comics.length === 0 ? "Комиксы отсутствуют" : "Comics:"}
-                </div>
+            </div>
             <ul className="char__comics-list">
                 {comics.map((item, i)=>{
                     if (i > 9) {
@@ -127,8 +135,9 @@ const Char = ({char}) => {
                         </li>
                     )                    
                 })}                
-            </ul>        
+            </ul>   
         </>
+        
     )
 }
 

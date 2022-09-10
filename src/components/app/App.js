@@ -29,7 +29,8 @@ const App = () => {
                             кавычках.
                             3.2. exact атрибут - чтобы было конкретное совпадение адреса.
                             Без него path ищет плохо*/}
-                                <Route path="/" element={<MainPage/>}/>                                
+                                <Route path="/" element={<MainPage/>}>
+                                </Route>                               
                                 <Route path="/comics" element={<ComicsPage/>}/>
                                 <Route path="/comics/:id" element={<SingleComic/>}/>                                
                                 <Route path="*" element={<Page404/>}/>                                
