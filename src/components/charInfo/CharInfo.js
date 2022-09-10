@@ -46,8 +46,10 @@ const CharInfo = ({id}) => {
     useEffect(()=>{
         changeCharacter();            
         if(id) {
-            setTimeout(()=> {setAnimate(false)}, 600)
-            setTimeout(()=> {setAnimate(true)}, 2000)
+            setAnimate(true)
+            // setTimeout(()=> {setAnimate(false)}, 600)
+            // setTimeout(()=> {setAnimate(true)}, 2000)
+            
 
         }
     // Чтобы по следующей строке не выскакивала ошибка
@@ -73,7 +75,7 @@ const CharInfo = ({id}) => {
         <>
             <CSSTransition
                 in={animate}
-                timeout={1000}
+                timeout={5000}
                 classNames="my-node"
                 >
                     <div className="char__info my-node">          
