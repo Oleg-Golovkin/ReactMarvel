@@ -10,10 +10,11 @@ import { useState } from "react";
 
 const MainPage = () => {
     const [id, setId] = useState(null);
-    
+
     function getId(num){
         setId(num)
-    } 
+    }
+
     return(  
         <>
             <RandomChar/>
@@ -27,8 +28,7 @@ const MainPage = () => {
             <ErrorBoundary>
             <CharInfo                         
                 id = {id}
-            />
-            
+            />            
             </ErrorBoundary>
             </div>
             <img className="bg-decoration" src={decoration} alt="vision"/>

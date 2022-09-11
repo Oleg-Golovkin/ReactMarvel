@@ -12,7 +12,6 @@ const CharInfo = ({id}) => {
     
     const [char, setChar] = useState();
     const {error, spinner, clearError, resPostCharacter} = useGetMarvelData();
-    const [animate, setAnimate] = useState(null);
     const changeCharacter = () => {
         // Если id еще не выбран, то команды ниже не 
         // запустятся, поскольку сработает return
@@ -44,14 +43,7 @@ const CharInfo = ({id}) => {
 
     
     useEffect(()=>{
-        changeCharacter();            
-        if(id) {
-            setAnimate(true)
-            // setTimeout(()=> {setAnimate(false)}, 600)
-            // setTimeout(()=> {setAnimate(true)}, 2000)
-            
-
-        }
+        changeCharacter();
     // Чтобы по следующей строке не выскакивала ошибка
      // eslint-disable-next-line
     }, [id])
@@ -71,27 +63,20 @@ const CharInfo = ({id}) => {
     // персонаж
     const charInfo = !(spinner || error || !char) ? <Char char = {char}/> : null
 
-    return (   
-        <>
-            <CSSTransition
-                in={animate}
-                timeout={5000}
-                classNames="my-node"
-                >
-                    <div className="char__info my-node">          
-                        {loading}
-                        {charInfo}
-                        {errorMessage}   
-                        {skeleton}                     
-                    </div>            
-            </CSSTransition>            
-            
-        </>     
-        
-       
-        
+    return (
+        <CSSTransition
+            in={!spinner}
+            timeout={600}
+            classNames="my-node"
+            >
+                <div className="char__info my-node">          
+                    {loading}
+                    {charInfo}
+                    {errorMessage}   
+                    {skeleton}                     
+                </div>            
+        </CSSTransition>
     )
-    
 }
 
 
