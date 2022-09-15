@@ -39,8 +39,7 @@ const CharInfo = ({id}) => {
         changeCharacter();    
     // Чтобы по следующей строке не выскакивала ошибка
     // eslint-disable-next-line
-    }, [])
-
+    }, [])    
     
     useEffect(()=>{
         changeCharacter();
