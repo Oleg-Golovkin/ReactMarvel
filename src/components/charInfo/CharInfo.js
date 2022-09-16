@@ -7,6 +7,8 @@ import Spinner from "../Spinner/spinner"
 import Error from "../error/error.js"
 import Skeleton from "../skeleton/Skeleton"
 import useGetMarvelData from '../../services/GetMarvelData';
+import SearchСharacter from '../searchСharacter/SearchСharacter';
+
 import { CSSTransition } from 'react-transition-group'
 const CharInfo = ({id}) => {    
     
@@ -63,18 +65,22 @@ const CharInfo = ({id}) => {
     const charInfo = !(spinner || error || !char) ? <Char char = {char}/> : null
 
     return (
-        <CSSTransition
-            in={!spinner}
-            timeout={600}
-            classNames="my-node"
-            >
-                <div className="char__info my-node">          
-                    {loading}
-                    {charInfo}
-                    {errorMessage}   
-                    {skeleton}                     
-                </div>            
-        </CSSTransition>
+        <div>
+            <CSSTransition
+                in={!spinner}
+                timeout={600}
+                classNames="my-node"
+                >
+                    <div className="char__info my-node">          
+                        {loading}
+                        {charInfo}
+                        {errorMessage}   
+                        {skeleton}                     
+                    </div>            
+            </CSSTransition>
+            <SearchСharacter/>
+        </div>
+        
     )
 }
 
