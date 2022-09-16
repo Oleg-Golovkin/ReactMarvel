@@ -1,11 +1,28 @@
 import {Formik, Form, Field, ErrorMessage} from 'formik';
 import * as Yup from 'yup'
+import useGetMarvelData from "../../services/GetMarvelData";
+import {
+    NavLink
+    } from "react-router-dom";
+
 
 import './searchСharacter.sass';
 import '../randomChar/randomChar.scss';
 
+const SearchСharacter = ({character, setCharacter}) => {
+    const {resPostCharacterSingle} = useGetMarvelData();
 
-const SearchСharacter = () => {
+    const аvailabilityComics = (name)=> {
+        resPostCharacterSingle(name)
+                .then(data=> setCharacter(data))
+    }
+
+    const foundCharacter = character 
+                            ? <СharacterFound name= {character.name}/> 
+                            : null;
+    const foundNotCharacter = character === undefined 
+                            ? <СharacterNotFound/>
+                            : null
     return(
         <Formik
         initialValues={{
@@ -13,17 +30,17 @@ const SearchСharacter = () => {
             }}
             validationSchema={Yup.object({
                 name: Yup.string()
-                        .required()
-                        .min(2, "Минимум два символа")
+                        .required("Поле не должно быть пустым")
+                        .min(3, "Минимум два символа")
             })}
-            onSubmit ={values=> console.log(JSON.stringify(values, null, 2))}>
+            onSubmit ={values=> аvailabilityComics(values.name)}>
             <Form className='char__info search-character'>
                 <label 
                     htmlFor="name"
                     className='search-character__lable'>
                     Or find a character by name:
                 </label>
-                <div 
+                <div
                 className="search-character__wrapper">
                     <Field
                         placeholder= "Enter name"
@@ -39,26 +56,36 @@ const SearchСharacter = () => {
                             <div className="inner">FIND</div>
                         </button>                        
                     </div>
-                    <h2 
-                    className="search-character__h2"
-                        >There is! Visit ${} page?</h2>
-                    <button 
-                    className="button button__secondary">
-                        <div 
-                        className="inner">TO PAGE</div>
-                    </button>
-                </div>                
-                
-                          
+                    {foundCharacter}                   
+                </div>
+                {foundNotCharacter}
+                <ErrorMessage 
+                    name="name" 
+                    component="div" /> 
             </Form>
         </Formik>
     )
 }
 
-// const SearchСharacter = () => {
-//     return(
-//         <h2>dasd</h2>
-//     )
-// }
+const СharacterFound = ({name}) => {
+    return(
+        <>
+            <h2 
+            className="search-character__h2"
+                >There is! Visit {name} page?</h2>
+            <NavLink to= {`/character/${name}`} 
+            className="button button__secondary">
+                <div 
+                className="inner">TO PAGE</div>
+            </NavLink>
+        </>        
+    )
+}
+
+const СharacterNotFound = () => {
+    return (
+        <h2>The character was not found. Check the name and tru again</h2>
+    )
+}
 
 export default SearchСharacter

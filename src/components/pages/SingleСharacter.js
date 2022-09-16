@@ -7,19 +7,20 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 
-const SingleComic = () => {
+const SingleСharacter = () => {
     const [comics, setComics] = useState({});
-    const {spinner, error, resPostComics, clearError} = useGetMarvelData();
-    const path = useParams();
-    
+    const {spinner, error, resPostCharacterSingle, clearError} = useGetMarvelData();
+    const {name} = useParams();
+
     useEffect(()=>{        
-            getServerComics();
+        getServerСharacter();
     // eslint-disable-next-line
-    }, [path.id])    
-    
-    const getServerComics = ()=> {
+    }, [name])
+
+
+    const getServerСharacter = ()=> {
         clearError();
-        resPostComics(path.id)
+        resPostCharacterSingle(name)
             .then(onAddComics)
     }
 
@@ -56,4 +57,4 @@ const Comic = ({comics}) => {
     )
 };
 
-export default SingleComic;
+export default SingleСharacter;

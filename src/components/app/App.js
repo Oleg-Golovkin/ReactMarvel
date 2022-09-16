@@ -1,5 +1,5 @@
 import AppHeader from "../appHeader/AppHeader";
-import {ComicsPage, MainPage, SingleComic} from "../pages"
+import {ComicsPage, MainPage, SingleComic, SingleСharacter} from "../pages"
 
 import { lazy, Suspense } from "react";
 
@@ -32,6 +32,7 @@ const App = () => {
                                 <Route path="/" element={<MainPage/>}/>
                                 <Route path="/comics" element={<ComicsPage/>}/>
                                 <Route path="/comics/:id" element={<SingleComic/>}/>                                
+                                <Route path="/character/:name" element={<SingleСharacter/>}/>                                
                                 <Route path="*" element={<Page404/>}/>                                
                         </Routes>
                     </Suspense>

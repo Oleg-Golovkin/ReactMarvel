@@ -73,7 +73,7 @@ const CharList = ({getId}) => {
     const onInstallationIdChars = (num)=> {        
         setActiveCardChars(num)
     } 
-    // Создание повторяющейся верстки с различным содержанием - разными пероснажами
+    // Создание повторяющейся верстки с различным содержанием - разными персонажами
     const li = chars.map((item, i) => {                
         let styleRandomchar = {};   
         if(item.img === 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg') {

@@ -13,7 +13,7 @@ const useGetMarvelData = ()=> {
     
     const {request, spinner, error, setError, clearError} = useHttp();
 
-// Код для загрузки персонажей
+//__________ Код для загрузки персонажей___________//
     
     // Не обязательно. Чтобы иметь возможность обращаться
     // к разным адресам
@@ -37,10 +37,19 @@ const useGetMarvelData = ()=> {
     // Обращение к персонажу по id
     const resPostCharacter = async (id) => {
         try { 
-        const data = await request(`
-        ${address}characters/${id}?${apikey}`
-        )
-        return  _transformationCharacter(await data.data.results[0]);
+            const data = await request(`
+            ${address}characters/${id}?${apikey}`
+            )
+            return  _transformationCharacter(await data.data.results[0]);
+        } catch(e){} 
+    }
+
+    const resPostCharacterSingle = async (name) => {
+        try { 
+            const data = await request(`        
+            ${address}characters?name=${name}&${apikey}`
+            )
+            return  _transformationCharacter(await data.data.results[0]);
         } catch(e){} 
     }
     // Если описание персонажей приоходит пустое, то эта пустота
@@ -68,7 +77,7 @@ const useGetMarvelData = ()=> {
 
 
 
-    // Часть кода, которая относится к данным комиксов
+    //___________ Часть кода, которая относится к данным комиксов____________//
     const resPostAllComics = async (offset = 0)=> {
         try{
             const aray = await request(`            
@@ -79,7 +88,6 @@ const useGetMarvelData = ()=> {
 
     const resPostComics = async (id) => {
         try {
-    // https://gateway.marvel.com:443/v1/public/comics/82965?apikey=827ef5444e9fbf654e8fa51f975d051a
  
         const data = await request(`
 
@@ -106,6 +114,7 @@ const useGetMarvelData = ()=> {
         clearError, 
         resPostAllCharacter, 
         resPostCharacter,
+        resPostCharacterSingle,
         resPostAllComics,
         resPostComics   
     }

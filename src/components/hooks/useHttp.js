@@ -19,7 +19,7 @@
                     setError(true)
                 } else {
                     setError(false)
-                };                
+                };  
                 const data = await response.json()
                 // После загруки данных выключаем спиннер.
                 setSpinner(false)                
