@@ -1,45 +1,7 @@
 import './singleComic.scss';
-import useGetMarvelData from "../../services/GetMarvelData";
-import Spinner from "../Spinner/spinner"
-import Error from "../error/error.js"
-import { useState, useEffect } from 'react';
-
-import { useParams } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 
-const SingleComic = () => {
-    const [comics, setComics] = useState({});
-    const {spinner, error, resPostComics, clearError} = useGetMarvelData();
-    const path = useParams();
-    
-    useEffect(()=>{        
-            getServerComics();
-    // eslint-disable-next-line
-    }, [path.id])    
-    
-    const getServerComics = ()=> {
-        clearError();
-        resPostComics(path.id)
-            .then(onAddComics)
-    }
-
-    const onAddComics = (newComics) => {
-        setComics(newComics);        
-    } 
-
-    const errorIcon = error ? <Error/> : null
-    const spinnerIcon = spinner ? <Spinner/> : null
-    const comic = !(error || spinner) ? <Comic comics={comics}/> : null   
-    return (
-        <>
-            {spinnerIcon}            
-            {errorIcon}           
-            {comic}
-        </>
-    )
-}
-
-const Comic = ({comics}) => {
+const SingleComic = ({comics}) => {
     const {title, img, prices, id} = comics;
     return( 
         <div key={id} className="single-comic">

@@ -1,5 +1,5 @@
 import AppHeader from "../appHeader/AppHeader";
-import {ComicsPage, MainPage, SingleComic, SingleСharacter} from "../pages"
+import {ComicsPage, MainPage, SingleComic, SingleСharacter, CharAndComPage} from "../pages"
 
 import { lazy, Suspense } from "react";
 
@@ -31,8 +31,14 @@ const App = () => {
                             Без него path ищет плохо*/}
                                 <Route path="/" element={<MainPage/>}/>
                                 <Route path="/comics" element={<ComicsPage/>}/>
-                                <Route path="/comics/:id" element={<SingleComic/>}/>                                
-                                <Route path="/character/:name" element={<SingleСharacter/>}/>                                
+                                <Route path="/comics/:id" element={<CharAndComPage 
+                                                                    Component={SingleComic}
+                                                                    dataType="comics"/>}
+                                                            />                                
+                                <Route path="/character/:id" element={<CharAndComPage 
+                                                                        Component={SingleСharacter}
+                                                                        dataType = "character"/>}
+                                                                        />                                
                                 <Route path="*" element={<Page404/>}/>                                
                         </Routes>
                     </Suspense>

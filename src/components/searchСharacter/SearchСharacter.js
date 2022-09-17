@@ -4,25 +4,30 @@ import useGetMarvelData from "../../services/GetMarvelData";
 import {
     NavLink
     } from "react-router-dom";
-
+import Error from '../error/error';
+import Spinner from '../Spinner/spinner';
 
 import './searchСharacter.sass';
 import '../randomChar/randomChar.scss';
 
 const SearchСharacter = ({character, setCharacter}) => {
-    const {resPostCharacterSingle} = useGetMarvelData();
+    const {resPostCharacterSingle, error, spinner} = useGetMarvelData();
 
     const аvailabilityComics = (name)=> {
         resPostCharacterSingle(name)
                 .then(data=> setCharacter(data))
     }
-
     const foundCharacter = character 
-                            ? <СharacterFound name= {character.name}/> 
+                            ? <СharacterFound 
+                            name= {character.name}
+                            id = {character.id}/> 
                             : null;
     const foundNotCharacter = character === undefined 
                             ? <СharacterNotFound/>
-                            : null
+                            : null;
+    const errorIcon = error ? <Error/> : null;
+    const spinnerIcon = spinner ? <Spinner/> : null;
+    
     return(
         <Formik
         initialValues={{
@@ -59,6 +64,8 @@ const SearchСharacter = ({character, setCharacter}) => {
                     {foundCharacter}                   
                 </div>
                 {foundNotCharacter}
+                {spinnerIcon}
+                {errorIcon}
                 <ErrorMessage 
                     name="name" 
                     component="div" /> 
@@ -67,13 +74,13 @@ const SearchСharacter = ({character, setCharacter}) => {
     )
 }
 
-const СharacterFound = ({name}) => {
+const СharacterFound = ({name, id}) => {
     return(
         <>
             <h2 
             className="search-character__h2"
                 >There is! Visit {name} page?</h2>
-            <NavLink to= {`/character/${name}`} 
+            <NavLink to= {`/character/${id}`} 
             className="button button__secondary">
                 <div 
                 className="inner">TO PAGE</div>
