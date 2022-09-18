@@ -6,41 +6,22 @@ import SearchСharacter from '../searchСharacter/SearchСharacter';
 
 import decoration from '../../resources/img/vision.png';
 import { useState } from "react";
-
+import {Helmet} from 'react-helmet'
 
 
 const MainPage = () => {
-    const [id, setId] = useState(null);
-    const [character, setCharacter] = useState(null);
+      return(  
+        <>  
+             <Helmet>
+                <meta charSet="utf-8" />
+                <title>MainPage</title>
+                <meta name="description" content="Page Comics" />
+            </Helmet>
 
-    function getId(num){
-        setId(num)
-    }
-
-    return(  
-        <>
-            <RandomChar/>
             <div className="char__content">
-                <ErrorBoundary>
-                    <CharList 
-                    getId = {getId}
-                    id = {id}                        
-                    />
-                </ErrorBoundary>
-                <div>
-                    <ErrorBoundary>
-                        <CharInfo                         
-                            id = {id}
-                        />           
-                    </ErrorBoundary>
-                    <ErrorBoundary>
-                        <SearchСharacter
-                        character= {character}
-                        setCharacter = {setCharacter} />          
-                    </ErrorBoundary>
-                </div>
+                              
             </div>
-            <img className="bg-decoration" src={decoration} alt="vision"/>
+            <img/>
         </>
     )
     
