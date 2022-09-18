@@ -10,7 +10,7 @@ const ComicsList = ()=>{
     const [comics, setComics] = useState([]);
     const [offset, setOffset] = useState(52693);
     const [hideBTN, setHideBTN] = useState(false);
-    const {spinner, error, resPostAllComics, clearError} = useGetMarvelData();
+    const {spinner, error, resPostAllComics, clearError, process, setProcess} = useGetMarvelData();
 
     useEffect(()=>{        
             getServerComics();        
@@ -41,7 +41,9 @@ const ComicsList = ()=>{
                         </NavLink>
                     </li>
             )
-        }) 
+        })
+    
+    // const result = ()
 
     const errorIcon = error ? <Error/> : null
     const spinnerIcon = spinner ? <Spinner/> : null
