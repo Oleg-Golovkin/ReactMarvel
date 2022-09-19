@@ -3,44 +3,28 @@
 
 import './charInfo.scss';
 import { useEffect, useState } from 'react';
-import Spinner from "../Spinner/spinner"
-import Error from "../error/error.js"
-import Skeleton from "../skeleton/Skeleton"
 import useGetMarvelData from '../../services/GetMarvelData';
+import resultFSM  from '../../utils/resultsFSM'
 
 import { CSSTransition } from 'react-transition-group'
 const CharInfo = ({id}) => {    
     
-    const [char, setChar] = useState();
-    const {error, spinner, clearError, resPostCharacter} = useGetMarvelData();
+    const [char, setChar] = useState(null);
+    const {spinner, clearError, resPostCharacter, process, setProcess} = useGetMarvelData();
+    
     const changeCharacter = () => {
-        // Если id еще не выбран, то команды ниже не 
-        // запустятся, поскольку сработает return
-        // const {id} = this.props
-        
-        if(!id) {
+        // Это условие блокирует создание компанента 
+        // без получения id, а значит создание пустого компанента
+        if (!id) {
             return
         }
-        
+        clearError();
         // Конструктор с запросом на сервер.       
-        
-        // Метод, в котором храниться в fetch        
-        resPostCharacter(id)
-            // Промисы
-            // Не обязательно. Запись состояния вынесена 
-            // в отдельную функцию this._setState. Полученный
-            // ответ от сервера записывается в эту функцию без явного
-            // написания об этом.
-            // .then(char=> this._setState(char)) длинная запись;
+        // Метод, в котором храниться в fetch 
+        resPostCharacter(id)           
             .then(_creationChar)
-        clearError()
-    }  
-    
-    useEffect(()=>{
-        changeCharacter();    
-    // Чтобы по следующей строке не выскакивала ошибка
-    // eslint-disable-next-line
-    }, [])    
+            .then(()=> setProcess("completed"))
+    }
     
     useEffect(()=>{
         changeCharacter();
@@ -50,19 +34,8 @@ const CharInfo = ({id}) => {
 
     const _creationChar = async (char) => {
         setChar(char);
-    }
-
-    // Если спиннер в позиции true то показывается он
-    const loading = spinner ? <Spinner/> : null
-    // Если ошибка в позиции true то показывается она
-    const errorMessage = error ? <Error/> : null        
-    // Если задействованны или спиннер, ошибка, выбран персонаж, то ничего не показывается,
-    // а если ничего не задействованно то показывается заглушка (скелетон)
-    const skeleton = spinner || error || char ? null : <Skeleton/>  
-    // Если отключены спиннер, ошибка и выбран персонаж, то показывается
-    // персонаж
-    const charInfo = !(spinner || error || !char) ? <Char char = {char}/> : null
-
+    } 
+  
     return (
         <CSSTransition
             in={!spinner}
@@ -70,20 +43,19 @@ const CharInfo = ({id}) => {
             classNames="my-node"
             >
                 <div className="char__info my-node">          
-                    {loading}
-                    {charInfo}
-                    {errorMessage}   
-                    {skeleton}                     
+                    {/* {result(process)} */}
+                                    {/* {Третий аргумент данные - char. 
+                                    Однако ниже в Char в props передал data, а не char. Поскольку
+                                    в функции resultFSM props обозначен как data} */}
+                    {resultFSM(process, Char, char)}
                 </div>            
         </CSSTransition>
         
     )
 }
 
-
-
-const Char = ({char}) => {     
-    const {name, img, homepage, wiki, description, comics} = char;
+const Char = ({data}) => {     
+    const {name, img, homepage, wiki, description, comics} = data;
     let styleRandomchar = {};   
     if(img === 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg') {
         styleRandomchar = {objectFit: "contain"}

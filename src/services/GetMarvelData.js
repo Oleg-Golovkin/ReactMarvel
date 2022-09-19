@@ -11,7 +11,7 @@ const useGetMarvelData = ()=> {
     cum sit molestias, delectus officiis veniam?`;
     const offsetOffset = 0;     
     
-    const {request, spinner, error, setError, clearError, process, setProcess} = useHttp();
+    const {request, spinner, clearError, process, setProcess} = useHttp();
 
 //__________ Код для загрузки персонажей___________//
     
@@ -109,8 +109,6 @@ const useGetMarvelData = ()=> {
 
     return { 
         spinner, 
-        error, 
-        setError, 
         clearError, 
         resPostAllCharacter, 
         resPostCharacter,

@@ -1,16 +1,15 @@
 import './comicsList.scss';
 import useGetMarvelData from "../../services/GetMarvelData";
 import { useState, useEffect } from 'react';
-import Spinner from "../Spinner/spinner"
-import Error from "../error/error.js"
 import { NavLink } from 'react-router-dom';
+import resultFSM  from '../../utils/resultsFSM'
 
 
 const ComicsList = ()=>{
     const [comics, setComics] = useState([]);
     const [offset, setOffset] = useState(52693);
     const [hideBTN, setHideBTN] = useState(false);
-    const {spinner, error, resPostAllComics, clearError, process, setProcess} = useGetMarvelData();
+    const {resPostAllComics, clearError, process, setProcess} = useGetMarvelData();
 
     useEffect(()=>{        
             getServerComics();        
@@ -21,6 +20,7 @@ const ComicsList = ()=>{
         clearError();
         resPostAllComics(offset)
         .then(onAddComics)
+        .then(()=> setProcess("completed"))
     }
     const onAddComics = (newComics) => {
         setComics([...comics, ...newComics]);   
@@ -29,24 +29,22 @@ const ComicsList = ()=>{
             setHideBTN(true);            
         }        
     }
-    
-    const li =  comics.map(item => {
+
+    function Li(){
+        return comics.map(item => {
             const {title, img, prices, id} = item
             return(
-                    <li key={id} className="comics__item">
-                        <NavLink to={`/comics/${id}`}>
-                            <img src={img} alt="ultimate war" className="comics__item-img"/>
-                            <div className="comics__item-name">{title}</div>
-                            <div className="comics__item-price">{prices}</div>
-                        </NavLink>
-                    </li>
+                <li key={id} className="comics__item">
+                    <NavLink to={`/comics/${id}`}>
+                        <img src={img} alt="ultimate war" className="comics__item-img"/>
+                        <div className="comics__item-name">{title}</div>
+                        <div className="comics__item-price">{prices}</div>
+                    </NavLink>
+                </li>
             )
         })
+    } 
     
-    // const result = ()
-
-    const errorIcon = error ? <Error/> : null
-    const spinnerIcon = spinner ? <Spinner/> : null
     // Здесь не нужно проверять на третье условие, мол чтобы спиннер и 
     // ошибка были выключены, поскольку будет создана новая переменная и перересован
     // компонент в момент загруки. И в этот момент верстка будет прыгать, т.е. не будет
@@ -55,9 +53,8 @@ const ComicsList = ()=>{
             <div
             className="comics__list">
                 <ul className="comics__grid">
-                {errorIcon}
-                {li} 
-                {spinnerIcon}     
+                <Li/> 
+                {resultFSM(process)}    
                 </ul>
                 <button
                 onClick={()=> {getServerComics(offset)}}

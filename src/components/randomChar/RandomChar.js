@@ -4,9 +4,8 @@
 import './randomChar.scss';
 import mjolnir from '../../resources/img/mjolnir.png';
 import useGetMarvelData from '../../services/GetMarvelData'
-import Spinner from "../Spinner/spinner"
-import Error from "../error/error.js"
 import { useState, useEffect} from 'react';
+import resultFSM  from '../../utils/resultsFSM'
 
 
 const RandomChar = () => {  
@@ -15,7 +14,7 @@ const RandomChar = () => {
      // состояния дописывая в него новые свойства
     const [char, setChar] = useState({});    
     
-    const {error, spinner, clearError, resPostCharacter} = useGetMarvelData();
+    const {clearError, resPostCharacter, process, setProcess} = useGetMarvelData();
 
     // Не обязательно. Выводим отдельную в функцию
     // запись состояния
@@ -41,6 +40,7 @@ const RandomChar = () => {
         // написания об этом.
         // .then(char=> this._setState(char)) длинная запись;
             .then(_setState)
+            .then(()=> setProcess("completed"))
         
             // Поведение ошибки прописано в resPostCharacter=>request=>
     }
@@ -50,19 +50,11 @@ const RandomChar = () => {
     // Чтобы по следующей строке не выскакивала ошибка
     // eslint-disable-next-line
     }, [])   
-
-    //    Поскольку вытаскиваем не из корня состояния, а из одного из 
-    //     объектов состояния
-    const spinnerBlock = spinner ? <Spinner/> : null;
-    const charBlock = !(spinner || error) ?  <RandomCharShow char= {char}/> :null;
-    const errorBlock = error ? <Error/> : null
-
+    
     return (
         <div
-        className="randomchar">
-                {spinnerBlock}
-                {charBlock}
-                {errorBlock}
+        className="randomchar">            
+                {resultFSM(process, RandomCharShow, char)}
             <div className="randomchar__static">
                 <p className="randomchar__title">
                     Random character for today!<br/>
@@ -82,8 +74,8 @@ const RandomChar = () => {
 }
 
 
-const RandomCharShow = ({char}) => {    
-    const {name, img, homepage, wiki, description} = char;
+const RandomCharShow = ({data}) => {    
+    const {name, img, homepage, wiki, description} = data;
     let styleRandomchar = {};   
     if(img === 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg') {
         styleRandomchar = {objectFit: "contain"}

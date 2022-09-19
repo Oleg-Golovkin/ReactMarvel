@@ -1,15 +1,13 @@
 import useGetMarvelData from "../../services/GetMarvelData";
-import Spinner from "../Spinner/spinner"
-import Error from "../error/error.js"
 import { useState, useEffect } from 'react';
+import resultFSM  from '../../utils/resultsFSM'
 
 import { useParams } from 'react-router-dom';
 
 const CharAndComPage = ({Component, dataType}) => {
     const [comics, setComics] = useState({});
-    const {spinner, error, resPostComics, resPostCharacter, clearError} = useGetMarvelData();
+    const {resPostComics, resPostCharacter, clearError, process, setProcess} = useGetMarvelData();
     const {id} = useParams();
-    console.log(dataType);
     
     useEffect(()=>{        
             getServerComics();
@@ -22,26 +20,24 @@ const CharAndComPage = ({Component, dataType}) => {
             case "comics":
                 resPostComics(id)
                     .then(onAddComics)
+                    .then(()=> setProcess("completed"))
                 break;
             case "character":
                 resPostCharacter(id)
                     .then(onAddComics)
+                    .then(()=> setProcess("completed"))
             break;
+            default:
+                throw new Error('Unexpected process state');   
         }
     }
 
     const onAddComics = (newComics) => {
         setComics(newComics);        
-    } 
-
-    const errorIcon = error ? <Error/> : null
-    const spinnerIcon = spinner ? <Spinner/> : null
-    const comic = !(error || spinner) ? <Component comics={comics}/> : null   
+    }
     return (
-        <>            
-            {spinnerIcon}            
-            {errorIcon}           
-            {comic}
+        <>
+            {resultFSM(process, Component, comics)}
         </>
     )
 }

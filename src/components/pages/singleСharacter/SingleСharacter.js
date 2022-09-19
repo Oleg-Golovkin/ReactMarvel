@@ -3,8 +3,8 @@ import '../singleComic/singleComic.scss';
 import { NavLink } from 'react-router-dom';
 
 
-const SingleСharacter = ({comics}) => {
-    const {title, img, prices, id} = comics;
+const SingleСharacter = ({data}) => {
+    const {title, img, prices, id} = data;
     return( 
         <div key={id} className="single-comic">
                 <img src={img} alt="x-men" className="single-comic__img"/>

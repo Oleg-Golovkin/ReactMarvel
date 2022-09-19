@@ -4,14 +4,15 @@ import useGetMarvelData from "../../services/GetMarvelData";
 import {
     NavLink
     } from "react-router-dom";
-import Error from '../error/error';
-import Spinner from '../Spinner/spinner';
+
+import resultFSM  from '../../utils/resultsFSM'
+
 
 import './searchСharacter.sass';
 import '../randomChar/randomChar.scss';
 
 const SearchСharacter = ({character, setCharacter}) => {
-    const {resPostCharacterSingle, error, spinner} = useGetMarvelData();
+    const {resPostCharacterSingle, process} = useGetMarvelData();
 
     const аvailabilityComics = (name)=> {
         resPostCharacterSingle(name)
@@ -25,9 +26,6 @@ const SearchСharacter = ({character, setCharacter}) => {
     const foundNotCharacter = character === undefined 
                             ? <СharacterNotFound/>
                             : null;
-    const errorIcon = error ? <Error/> : null;
-    const spinnerIcon = spinner ? <Spinner/> : null;
-    
     return(
         <Formik
         initialValues={{
@@ -63,9 +61,8 @@ const SearchСharacter = ({character, setCharacter}) => {
                     </div>
                     {foundCharacter}                   
                 </div>
-                {foundNotCharacter}
-                {spinnerIcon}
-                {errorIcon}
+                {foundNotCharacter}                
+                {resultFSM(process)}
                 <ErrorMessage 
                     name="name" 
                     component="div" /> 
