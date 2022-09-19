@@ -27,7 +27,6 @@ const SearchСharacter = ({character, setCharacter}) => {
     const foundNotCharacter = character === undefined 
                             ? <СharacterNotFound/>
                             : null;
-    console.log(process);
     return(
         <Formik
         initialValues={{
