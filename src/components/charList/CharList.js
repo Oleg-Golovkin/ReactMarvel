@@ -14,7 +14,6 @@ const CharList = ({getId}) => {
     const [activeCardChars, setActiveCardChars] = useState(null);
 
     const {clearError, resPostAllCharacter, process, setProcess} = useGetMarvelData();
-    console.log(process);
     // При загрузке страницы сразу подгружаем персонажей
     useEffect(()=> {
         getServerChars();

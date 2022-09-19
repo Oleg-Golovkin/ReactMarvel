@@ -6,16 +6,17 @@ import Skeleton from "../components/skeleton/Skeleton"
 // соответственно данные. Null для компанента не подойдет,
 // поскольку в него должна возвращаться функция или 
 // строка
-const resultFSM = (process, Component = (()=>{}), data = null) => {
+const resultFSM = (process, Component = (()=>{}), data = null, waiting=true) => {
     switch (process) {
         case 'waiting':
-            return <Skeleton/>            
+            return waiting ? <Skeleton/> : null;          
         case "loading": 
             return <Spinner/>            
         case "error": 
             return <Error/>            
         case 'completed':
             return <Component data={data}/>
+        // case ""
         default:
                 throw new Error('Unexpected process state');                
     }

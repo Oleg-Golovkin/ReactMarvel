@@ -12,11 +12,12 @@ import './searchСharacter.sass';
 import '../randomChar/randomChar.scss';
 
 const SearchСharacter = ({character, setCharacter}) => {
-    const {resPostCharacterSingle, process} = useGetMarvelData();
+    const {resPostCharacterSingle, process, setProcess} = useGetMarvelData();
 
     const аvailabilityComics = (name)=> {
         resPostCharacterSingle(name)
                 .then(data=> setCharacter(data))
+                .then(()=>setProcess('completed'))
     }
     const foundCharacter = character 
                             ? <СharacterFound 
@@ -26,6 +27,7 @@ const SearchСharacter = ({character, setCharacter}) => {
     const foundNotCharacter = character === undefined 
                             ? <СharacterNotFound/>
                             : null;
+    console.log(process);
     return(
         <Formik
         initialValues={{
@@ -62,7 +64,7 @@ const SearchСharacter = ({character, setCharacter}) => {
                     {foundCharacter}                   
                 </div>
                 {foundNotCharacter}                
-                {resultFSM(process)}
+                {resultFSM(process, ()=>{}, null, false)}
                 <ErrorMessage 
                     name="name" 
                     component="div" /> 
